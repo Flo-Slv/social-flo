@@ -1,0 +1,84 @@
+$color1: #000000;
+$color2: #002749;
+$color3: #0060a0;
+$color4: #00a1ff;
+$color5: #00ebff;
+
+.login {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: $color2;
+	color: $color3;
+
+	h1 {
+		color: #fff;
+		font-family: 'Lobster';
+		font-size: 50px;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 50px 25px 0 25px;
+
+		input {
+			border: 1px solid $color3;
+			border-radius: 5px;
+			padding: 5px;
+			background-color: $color3;
+			color: #fff;
+			margin-bottom: 20px;
+
+			&::placeholder {
+				font-weight: bold;
+				opacity: .6;
+				color: #fff;
+				text-align: center;
+			}
+		}
+
+		button {
+			min-width: 130px;
+			height: 40px;
+			margin-top: 20px;
+			color: $color3;
+			padding: 5px 10px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			display: inline-block;
+			outline: none;
+			border-radius: 5px;
+			z-index: 0;
+			background: #fff;
+			overflow: hidden;
+			border: 1px solid $color3;
+
+			&:hover {
+				color: #fff;
+			}
+
+			&:hover:after {
+				width: 100%;
+			}
+
+			&:after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				transition: all 0.3s ease;
+				right: 0;
+				top: 0;
+				width: 0;
+				height: 100%;
+				background: $color3;
+			}
+		}
+	}
+}
+
