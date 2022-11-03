@@ -1,3 +1,5 @@
+import ThemeProvider from './theme-provider';
+
 import './global.scss';
 
 const RootLayout = ({ children }) => {
@@ -30,7 +32,9 @@ const RootLayout = ({ children }) => {
 			</head>
 
 			<body>
-				{children}
+				<ThemeProvider>
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

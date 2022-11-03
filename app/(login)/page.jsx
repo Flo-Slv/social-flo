@@ -20,7 +20,7 @@ const Login = () => {
 					minLength='10'
 					required
 				/>
-				<button className={'login-button'}>Log in</button>
+				<button>Log in</button>
 			</form>
 		</div>
 	)
