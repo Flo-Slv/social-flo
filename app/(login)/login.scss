@@ -39,6 +39,16 @@ $color5: #00ebff;
 				color: #fff;
 				text-align: center;
 			}
+
+			&:hover {
+				border: 1px solid rgba(255, 255, 255, .4);
+			}
+
+			&:focus {
+				background-color: $color3;
+				outline: none;
+				border: 1px solid #fff;
+			}
 		}
 
 		button {
@@ -55,12 +65,13 @@ $color5: #00ebff;
 			outline: none;
 			border-radius: 5px;
 			z-index: 0;
-			background: #fff;
+			background-color: #fff;
 			overflow: hidden;
-			border: 1px solid $color3;
+			border: none;
 
 			&:hover {
 				color: #fff;
+				border: 1px solid #fff;
 			}
 
 			&:hover:after {
@@ -76,7 +87,7 @@ $color5: #00ebff;
 				top: 0;
 				width: 0;
 				height: 100%;
-				background: $color3;
+				background-color: $color3;
 			}
 		}
 	}
