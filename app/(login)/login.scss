@@ -5,15 +5,14 @@ $color4: #00a1ff;
 $color5: #00ebff;
 
 .login {
+	position: relative;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: $color2;
 
 	h1 {
-		color: #fff;
 		font-family: 'Lobster';
 		font-size: 50px;
 	}
@@ -25,28 +24,18 @@ $color5: #00ebff;
 		padding: 50px 25px 0 25px;
 
 		input {
-			border: 1px solid $color3;
 			border-radius: 5px;
 			padding: 5px;
-			background-color: $color3;
-			color: #fff;
 			margin-bottom: 20px;
 
 			&::placeholder {
 				font-weight: bold;
-				opacity: .6;
-				color: #fff;
 				text-align: center;
-			}
-
-			&:hover {
-				border: 1px solid rgba(255, 255, 255, .4);
+				opacity: .6;
 			}
 
 			&:focus {
-				background-color: $color3;
 				outline: none;
-				border: 1px solid #fff;
 			}
 		}
 
@@ -54,7 +43,6 @@ $color5: #00ebff;
 			min-width: 130px;
 			height: 40px;
 			margin-top: 20px;
-			color: $color2;
 			padding: 5px 10px;
 			font-weight: bold;
 			cursor: pointer;
@@ -64,14 +52,7 @@ $color5: #00ebff;
 			outline: none;
 			border-radius: 5px;
 			z-index: 0;
-			background-color: #fff;
 			overflow: hidden;
-			border: 1px solid #fff;
-
-			&:hover {
-				color: #fff;
-				border: 1px solid #fff;
-			}
 
 			&:hover:after {
 				width: 100%;
@@ -86,9 +67,107 @@ $color5: #00ebff;
 				top: 0;
 				width: 0;
 				height: 100%;
+			}
+		}
+	}
+
+	.login-image {
+		position: absolute;
+		bottom: 25px;
+		cursor: pointer;
+
+		&:hover {
+			transform: scale(1.1);
+			transition: all .2s ease-in-out;
+		}
+	}
+}
+
+.dark-mode {
+	background-color: $color2;
+
+	h1 {
+		color: #fff;
+	}
+
+	form {
+		input {
+			border: 1px solid $color3;
+			background-color: $color3;
+			color: #fff;
+
+			&::placeholder {
+				color: #fff;
+			}
+
+			&:hover {
+				border: 1px solid rgba(255, 255, 255, .4);
+			}
+
+			&:focus {
+				background-color: $color3;
+				border: 1px solid #fff;
+			}
+		}
+
+		button {
+			color: $color2;
+			background-color: #fff;
+			border: 1px solid #fff;
+
+			&:hover {
+				color: #fff;
+				border: 1px solid #fff;
+			}
+
+			&:after {
 				background-color: $color3;
 			}
 		}
 	}
 }
 
+.light-mode {
+	background-color: #f5f5f5;
+
+	h1 {
+		color: $color2;
+	}
+
+	form {
+		input {
+			border: 1px solid #fff;
+			color: $color2;
+
+			&::placeholder {
+				color: $color2;
+			}
+
+			&:hover {
+				border: 1px solid rgba(0, 39, 73, .4);
+ 			}
+
+			&:focus {
+				border: 1px solid $color2;
+			}
+		}
+	}
+
+	button {
+		color: #fff;
+		background: #fff;
+		border: 2px solid $color2;
+		color: $color2;
+
+		&:hover {
+			color: #fff;
+		}
+
+		&:after {
+			transition: all 0.3s ease;
+			left: 0;
+			top: 0;
+			background: $color2;
+		}
+	}
+}

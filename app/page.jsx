@@ -1,3 +1,5 @@
+'use client';
+
 import Login from './(login)/page.jsx';
 
 const Home = () => {

@@ -1,15 +1,22 @@
 'use client';
 
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
-const ThemeContext = createContext();
+const initialState = {
+	dark: Boolean(true),
+	toggle: () => {}
+};
 
-const ThemeProvider = ({ children }) => {
+export const ThemeContext = createContext(initialState);
+
+export const ThemeProvider = ({ children }) => {
+	const [dark, setDark] = useState(Boolean(true));
+
+	const toggle = () => setDark(!dark);
+
 	return (
-		<ThemeContext.Provider value='dark'>
+		<ThemeContext.Provider value={{ dark, toggle }}>
 			{children}
 		</ThemeContext.Provider>
 	);
 };
-
-export default ThemeProvider;
