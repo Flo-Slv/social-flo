@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import Image from 'next/image';
 
-import { ThemeContext } from '../theme-provider';
+import { ThemeContext } from '../../context/theme/theme-provider.jsx';
 
 import './login.scss';
 import lightTheme from '../../public/light-theme.png';

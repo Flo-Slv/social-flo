@@ -1,4 +1,4 @@
-import { ThemeProvider } from './theme-provider';
+import { ThemeProvider } from '../context/theme/theme-provider.jsx';
 
 import './global.scss';
 
