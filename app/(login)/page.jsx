@@ -11,7 +11,6 @@ import darkTheme from '../../public/dark-theme.png';
 
 const Login = () => {
 	const { dark, toggle } = useContext(ThemeContext);
-	console.log('dark: ', dark);
 
 	return (
 		<div className={`login ${dark ? 'dark-mode' : 'light-mode'}`}>
