@@ -12,11 +12,32 @@ import darkTheme from '../../public/dark-theme.png';
 const Login = () => {
 	const { dark, toggle } = useContext(ThemeContext);
 
+	const handleSubmit = async e => {
+		e.preventDefault();
+
+		const formData = new FormData(e.target);
+
+		const data = {
+			email: formData.get('email'),
+			password: formData.get('password')
+		};
+
+		const res = await fetch('/api/users', {
+			body: JSON.stringify(data),
+			headers: { 'Content-Type': 'application/json' },
+			method: 'POST'
+		});
+
+		const user = await res.json();
+
+		console.log('user: ', user);
+	};
+
 	return (
 		<div className={`login ${dark ? 'dark-mode' : 'light-mode'}`}>
 			<h1>Social Flo</h1>
 
-			<form>
+			<form onSubmit={handleSubmit}>
 				<input
 					type='email'
 					name='email'
@@ -31,7 +52,8 @@ const Login = () => {
 					minLength='10'
 					required
 				/>
-				<button>Log in</button>
+
+				<button type='submit'>Log in</button>
 			</form>
 
 			<div className={'login-image'}>
