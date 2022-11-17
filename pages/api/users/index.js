@@ -37,7 +37,10 @@ const handler = async (req, res) => {
 
 			if (error) throw new Error(error);
 
-			return res.status(200).json({ user });
+			return res.status(200).json({ 
+				message: 'User successfully created !',
+				user
+			});
 		}
 		catch (error) {
 			return res.status(500).json({ error: error.message });
@@ -50,7 +53,10 @@ const handler = async (req, res) => {
 
 			if (error) throw new Error(error);
 
-			return res.status(200).json({ user });
+			return res.status(200).json({
+				message: 'User successfully deleted !',
+				user
+			});
 		}
 		catch (error) {
 			return res.status(500).json({ error: error.message });
