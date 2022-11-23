@@ -5,9 +5,19 @@ import Image from 'next/image';
 
 import { ThemeContext } from '../../context/theme/theme-provider.jsx';
 
-import './login.scss';
+import '../css/login.scss';
 import lightTheme from '../../public/light-theme.png';
 import darkTheme from '../../public/dark-theme.png';
+
+const login = async data => {
+	const res = await fetch('/api/users/login', {
+		body: JSON.stringify(data),
+		headers: { 'Content-Type': 'application/json' },
+		method: 'POST'
+	});
+
+	return res.json();
+};
 
 const Login = () => {
 	const { dark, toggle } = useContext(ThemeContext);
@@ -22,15 +32,11 @@ const Login = () => {
 			password: formData.get('password')
 		};
 
-		const res = await fetch('/api/users', {
-			body: JSON.stringify(data),
-			headers: { 'Content-Type': 'application/json' },
-			method: 'POST'
-		});
+		const user = await login(data);
 
-		const user = await res.json();
+		// if (user?.error) throw new Error('oups...'); // Does not working...
 
-		console.log('user: ', user);
+		console.log('client user: ', user);
 	};
 
 	return (
