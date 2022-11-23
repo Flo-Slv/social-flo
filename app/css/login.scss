@@ -75,13 +75,12 @@ $color4: #00ebff;
 	}
 
 	.login-buttons {
-		margin-top: 50px;
+		margin-top: 30px;
 
 		button {
-			min-width: 130px;
-			height: 40px;
+			min-width: 100px;
+			height: 30px;
 			padding: 5px 10px;
-			margin-right: 10px;
 			font-weight: bold;
 			cursor: pointer;
 			transition: all 0.3s ease;
@@ -93,6 +92,10 @@ $color4: #00ebff;
 			&:hover {
 				background: $color2;
 				color: #fff;
+			}
+
+			&:first-child {
+				margin-right: 10px;
 			}
 		}
 	}
