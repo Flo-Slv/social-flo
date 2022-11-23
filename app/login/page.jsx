@@ -2,6 +2,7 @@
 
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 
 import { ThemeContext } from '../../context/theme/theme-provider.jsx';
@@ -50,7 +51,7 @@ const Login = () => {
 		<div className={`login ${dark ? 'dark-mode' : 'light-mode'}`}>
 			<h1>Social Flo</h1>
 
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} autoComplete={'off'}>
 				<input
 					type='email'
 					name='email'
@@ -67,11 +68,22 @@ const Login = () => {
 				/>
 
 				<button type='submit'>Log in</button>
+
 			</form>
 
 			{error && (
 				<div>{error}</div>
 			)}
+
+			<div className={'login-buttons'}>
+				<button onClick={() => router.push('/yolo')}>
+					Create an account
+				</button>
+
+				<button onClick={() => router.push('/')}>
+					Back to home
+				</button>
+			</div>
 
 			<div className={'login-image'}>
 				<Image
