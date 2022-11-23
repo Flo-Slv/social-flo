@@ -1,4 +1,4 @@
-import Login from './(login)/page.jsx';
+import Login from './components/Login.jsx';
 
 const Home = () => {
 	return (
