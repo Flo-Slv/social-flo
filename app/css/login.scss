@@ -89,6 +89,11 @@ $color4: #00ebff;
 			display: inline-block;
 			outline: none;
 			border-radius: 5px;
+
+			&:hover {
+				background: $color2;
+				color: #fff;
+			}
 		}
 	}
 
@@ -146,11 +151,6 @@ $color4: #00ebff;
 			color: $color1;
 			border: 2px solid #fff;
 			background: #fff;
-
-			&:hover {
-				background: $color2;
-				color: #fff;
-			}
 		}
 	}
 }
@@ -199,11 +199,6 @@ $color4: #00ebff;
 			color: $color2;
 			border: 2px solid $color2;
 			background: #fff;
-
-			&:hover {
-				background: $color2;
-				color: #fff;
-			}
 		}
 	}
 }
