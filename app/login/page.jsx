@@ -1,28 +1,24 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import { ThemeContext } from '../../context/theme/theme-provider.jsx';
 
 import '../css/login.scss';
+
 import lightTheme from '../../public/light-theme.png';
 import darkTheme from '../../public/dark-theme.png';
-
-const login = async data => {
-	const res = await fetch('/api/users/login', {
-		body: JSON.stringify(data),
-		headers: { 'Content-Type': 'application/json' },
-		method: 'POST'
-	});
-
-	return res.json();
-};
 
 const Login = () => {
 	const { dark, toggle } = useContext(ThemeContext);
 
-	const handleSubmit = async e => {
+	const [error, setError] = useState('');
+
+	const router = useRouter();
+
+	const handleSubmit = e => {
 		e.preventDefault();
 
 		const formData = new FormData(e.target);
@@ -32,11 +28,22 @@ const Login = () => {
 			password: formData.get('password')
 		};
 
-		const user = await login(data);
+		// Try to login.
+		fetch('/api/users/login', {
+			body: JSON.stringify(data),
+			headers: { 'Content-Type': 'application/json' },
+			method: 'POST'
+		})
+			.then(res => res.json())
+			.then(res => {
+				if (res.error) {
+					setError(res.error);
+					return null;
+				}
 
-		// if (user?.error) throw new Error('oups...'); // Does not working...
-
-		console.log('client user: ', user);
+				// Redirect to profile if ok.
+				router.push('/');
+			});
 	};
 
 	return (
@@ -61,6 +68,10 @@ const Login = () => {
 
 				<button type='submit'>Log in</button>
 			</form>
+
+			{error && (
+				<div>{error}</div>
+			)}
 
 			<div className={'login-image'}>
 				<Image
