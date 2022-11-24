@@ -26,7 +26,8 @@ const CreateAccount = () => {
 
 		const data = {
 			email: formData.get('email'),
-			password: formData.get('password')
+			password: formData.get('password'),
+			confirm_password: formData.get('confirm_password')
 		};
 
 		// Try to create an account.
@@ -69,7 +70,7 @@ const CreateAccount = () => {
 
 				<input
 					type='password'
-					name='confirm-password'
+					name='confirm_password'
 					placeholder='Confirm password'
 					minLength='10'
 					required

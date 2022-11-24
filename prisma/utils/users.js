@@ -23,10 +23,16 @@ export const getUserById = async id => {
 export const createUser = async user => {
 	try {
 		const existingUser = await prisma.user.findUnique({
-			where: { email: user.email }
+			where: { email: user.email.trim() }
 		});
 
-		if (existingUser) return { error: 'Email already taken !' }
+		if (existingUser) return { error: 'Email already taken !' };
+
+		if (user.password.trim() !== user.confirm_password.trim())
+			return { error: 'Both password should be identical !' };
+
+		// Do not send 'confirm_password' to DB.
+		delete user.confirm_password;
 
 		const newUser = await prisma.user.create({
 			data: user
