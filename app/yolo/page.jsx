@@ -43,8 +43,10 @@ const CreateAccount = () => {
 					return null;
 				}
 
-				// Redirect to profile if ok.
-				router.push('/');
+				// Redirect to login if ok.
+				// See if we can pass a message to this new page
+				// like 'User successfully created, you can now log in'a
+				router.push('/login');
 			});
 	};
 

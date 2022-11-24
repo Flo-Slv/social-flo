@@ -23,7 +23,7 @@ const handler = async (req, res) => {
 				secret
 			);
 
-			const cookie = serialize('SocialFloJWT', token, {
+			const cookie = serialize('socialFloJWT', token, {
 				httpOnly: Boolean(true),
 				secure: process.env.NODE_ENV !== 'development',
 				sameSite: 'strict',

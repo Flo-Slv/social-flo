@@ -8,6 +8,12 @@ import {
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
 		try {
+			const { cookies } = req;
+			const jwt = cookies.socialFloJWT;
+
+			if (!jwt)
+				return res.status(500).json({ error: 'You need to be login !' });
+
 			// Fetch only one user by id.
 			if (req.query.id) {
 				const { user, error } = await getUserById(req.query.id);
