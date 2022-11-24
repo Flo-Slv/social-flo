@@ -55,7 +55,7 @@ export const createUser = async user => {
 		delete user.confirm_password;
 
 		// Hash the password.
-		user.password = bcrypt.hashSync(user.password, 10);
+		user.password = bcrypt.hashSync(user.password, 12);
 
 		// Create user in DB.
 		const newUser = await prisma.user.create({ data: user });
