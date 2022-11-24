@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import prisma from './prisma-client.js';
 
 export const getUsers = async () => {
@@ -34,6 +36,9 @@ export const createUser = async user => {
 		// Do not send 'confirm_password' to DB.
 		delete user.confirm_password;
 
+		// Hash the password.
+		user.password = bcrypt.hashSync(user.password, 10);
+
 		const newUser = await prisma.user.create({
 			data: user
 		});
@@ -52,11 +57,9 @@ export const login = async user => {
 		});
 
 		if (existingUser) {
-			console.log('login existingUser: ', existingUser);
-
-			if (existingUser.password !== user.password.trim()) {
+			// Compare hash of passwords.
+			if (!bcrypt.compareSync(user.password.trim(), existingUser.password))
 				return { error: 'Bad password !' };
-			}
 
 			return { user: existingUser };
 		}
