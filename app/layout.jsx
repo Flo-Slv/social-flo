@@ -1,6 +1,6 @@
 import { ThemeProvider } from '../context/theme/theme-provider.jsx';
 
-import './css/global.scss';
+import '/styles/global.scss';
 
 const RootLayout = ({ children }) => {
 	return (

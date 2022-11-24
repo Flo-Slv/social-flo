@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import { ThemeContext } from '../../context/theme/theme-provider.jsx';
 
-import '../css/login.scss';
+import '/styles/login.scss';
 
 import lightTheme from '../../public/light-theme.png';
 import darkTheme from '../../public/dark-theme.png';
