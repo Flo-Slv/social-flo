@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import { serialize } from 'cookie';
+import { setCookie } from 'cookies-next';
 
 import { login } from '../../../../prisma/utils/users.js';
 
@@ -23,15 +23,15 @@ const handler = async (req, res) => {
 				secret
 			);
 
-			const cookie = serialize('socialFloJWT', token, {
+			setCookie('socialFloJWT', token, {
+				req,
+				res,
 				httpOnly: Boolean(true),
 				secure: process.env.NODE_ENV !== 'development',
 				sameSite: 'strict',
 				maxAge: 60 * 60 * 24 * 30,
 				path: '/'
 			});
-
-			res.setHeader('Set-Cookie', cookie);
 
 			return res.status(200).json({ message: 'User successfully login !' });
 		}
