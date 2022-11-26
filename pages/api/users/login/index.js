@@ -1,4 +1,4 @@
-import { sign } from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 import { setCookie } from 'cookies-next';
 
 import { login } from '../../../../prisma/utils/users.js';
@@ -12,18 +12,21 @@ const handler = async (req, res) => {
 
 			if (error) throw new Error(error);
 
-			const secret = process.env.SECRET_KEY;
+			const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 
-			const token = sign(
-				{
-					exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30, // 30 days
-					id: user.id,
-					email: user.email
-				},
-				secret
-			);
+			const jwt = await new SignJWT({
+				id: user.id,
+				email: user.email
+			})
+				.setProtectedHeader({ alg: 'HS256' })
+				.setIssuedAt()
+				.setIssuer()
+				.setAudience()
+				// 30 days, divide by 1000 to be based on 'epoch' UNIX time.
+				.setExpirationTime(Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30)
+				.sign(secret);
 
-			setCookie('socialFloJWT', token, {
+			setCookie('socialFloJWT', jwt, {
 				req,
 				res,
 				httpOnly: Boolean(true),
