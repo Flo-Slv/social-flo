@@ -25,8 +25,6 @@ export const middleware = async request => {
 
 		// jwt expired.
 		if (currentDate > payload.exp)
-			// TO DO
-			// Delete existing cookie.
 			return NextResponse.redirect(new URL('/login'), request.url);
 
 		return NextResponse.redirect(new URL('/', request.url));
