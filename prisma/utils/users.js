@@ -82,7 +82,7 @@ export const login = async user => {
 
 		if (existingUser) {
 			// Compare hash of passwords.
-			if (!bcrypt.compareSync(user.password.trim(), existingUser.password))
+			if (!bcrypt.compareSync(password, existingUser.password))
 				return { error: 'Bad password !' };
 
 			return { user: existingUser };
