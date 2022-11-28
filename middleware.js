@@ -1,5 +1,6 @@
-import { jwtVerify } from 'jose';
 import { NextResponse } from 'next/server';
+
+import verifyJwt from './utils/jose/verifyJwt.js';
 
 const publicRoutes = ['/login', '/yolo'];
 const protectedRoutes = ['/'];
@@ -16,22 +17,8 @@ export const middleware = async request => {
 		// Get jwt.
 		const jwt = request.cookies.get('currentUser')?.value;
 
-		try {
-			// Decode jwt.
-			const secret = new TextEncoder().encode(process.env.SECRET_KEY);
-			const { payload } = await jwtVerify(jwt, secret);
+		const isVerified = await verifyJwt(jwt, 'middleware', NextResponse);
 
-			// To get current date based on 'epoch' UNIX time, we need to divide by 1000.
-			const currentDate = Math.floor(Date.now() / 1000);
-
-			// jwt expired.
-			if (currentDate > payload.exp)
-				return NextResponse.redirect(new URL('/login'), request.url);
-
-			return NextResponse.redirect(new URL('/', request.url));
-		}
-		catch (err) {
-			throw new Error(err.message);
-		}
+		if (isVerified) return NextResponse.redirect(new URL('/', request.url));
 	}
 };
