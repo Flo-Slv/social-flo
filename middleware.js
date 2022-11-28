@@ -16,9 +16,9 @@ export const middleware = async request => {
 		// Get jwt cookie.
 		const socialFloJWT = request.cookies.get('socialFloJWT')?.value;
 
-		// Decode jwt.
-		const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 		try {
+			// Decode jwt.
+			const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 			const { payload } = await jwtVerify(socialFloJWT, secret);
 
 			// To get current date based on 'epoch' UNIX time, we need to divide by 1000.

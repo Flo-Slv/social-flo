@@ -14,9 +14,9 @@ const isUserLogged = async (req, res) => {
 
 	if (!jwt) return Boolean(false);
 
-	// Decode jwt.
-	const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 	try {
+		// Decode jwt.
+		const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 		const { payload } = await jwtVerify(jwt, secret);
 
 		// To get current date based on 'epoch' UNIX time, we need to divide by 1000.
