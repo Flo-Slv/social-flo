@@ -16,7 +16,8 @@ const handler = async (req, res) => {
 
 			const jwt = await new SignJWT({
 				id: user.id,
-				email: user.email
+				email: user.email,
+				name: user.name ?? ''
 			})
 				.setProtectedHeader({ alg: 'HS256' })
 				.setIssuedAt()
@@ -26,7 +27,7 @@ const handler = async (req, res) => {
 				.setExpirationTime(Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30)
 				.sign(secret);
 
-			setCookie('socialFloJWT', jwt, {
+			setCookie('currentUser', jwt, {
 				req,
 				res,
 				httpOnly: Boolean(true),

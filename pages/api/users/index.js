@@ -10,7 +10,7 @@ import {
 // Check if user is logged.
 const isUserLogged = async (req, res) => {
 	const { cookies } = req;
-	const jwt = cookies.socialFloJWT;
+	const jwt = cookies.currentUser;
 
 	if (!jwt) return Boolean(false);
 

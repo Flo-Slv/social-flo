@@ -5,7 +5,7 @@ const publicRoutes = ['/login', '/yolo'];
 const protectedRoutes = ['/'];
 
 export const middleware = async request => {
-	const hasJWT = request.cookies.has('socialFloJWT');
+	const hasJWT = request.cookies.has('currentUser');
 
 	// Redirect to login page if not logged.
 	if (protectedRoutes.includes(request.nextUrl.pathname) && !hasJWT)
@@ -13,13 +13,13 @@ export const middleware = async request => {
 
 	// Redirect to homepage if already logged.
 	if (publicRoutes.includes(request.nextUrl.pathname) && hasJWT) {
-		// Get jwt cookie.
-		const socialFloJWT = request.cookies.get('socialFloJWT')?.value;
+		// Get jwt.
+		const jwt = request.cookies.get('currentUser')?.value;
 
 		try {
 			// Decode jwt.
 			const secret = new TextEncoder().encode(process.env.SECRET_KEY);
-			const { payload } = await jwtVerify(socialFloJWT, secret);
+			const { payload } = await jwtVerify(jwt, secret);
 
 			// To get current date based on 'epoch' UNIX time, we need to divide by 1000.
 			const currentDate = Math.floor(Date.now() / 1000);
