@@ -18,15 +18,20 @@ export const middleware = async request => {
 
 		// Decode jwt.
 		const secret = new TextEncoder().encode(process.env.SECRET_KEY);
-		const { payload } = await jwtVerify(socialFloJWT, secret);
+		try {
+			const { payload } = await jwtVerify(socialFloJWT, secret);
 
-		// To get current date based on 'epoch' UNIX time, we need to divide by 1000.
-		const currentDate = Math.floor(Date.now() / 1000);
+			// To get current date based on 'epoch' UNIX time, we need to divide by 1000.
+			const currentDate = Math.floor(Date.now() / 1000);
 
-		// jwt expired.
-		if (currentDate > payload.exp)
-			return NextResponse.redirect(new URL('/login'), request.url);
+			// jwt expired.
+			if (currentDate > payload.exp)
+				return NextResponse.redirect(new URL('/login'), request.url);
 
-		return NextResponse.redirect(new URL('/', request.url));
+			return NextResponse.redirect(new URL('/', request.url));
+		}
+		catch (err) {
+			throw new Error(err.message);
+		}
 	}
 };
