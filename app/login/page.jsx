@@ -60,7 +60,7 @@ const Login = () => {
 				}
 
 				// Redirect to profile if ok.
-				router.push('/');
+				router.refresh('/');
 			});
 	};
 
