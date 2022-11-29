@@ -19,23 +19,6 @@ const Login = () => {
 
 	const router = useRouter();
 
-	const handleLogout = () => {
-		fetch('/api/users/logout', {
-			headers: { 'Content-Type': 'application/json'},
-			method: 'GET'
-		})
-			.then(res => res.json())
-			.then(res => {
-				if (res.error) {
-					setError(res.error);
-					return null;
-				}
-
-				// Redirect to homepage if ok.
-				router.push('/');
-		});
-	};
-
 	const handleSubmit = e => {
 		e.preventDefault();
 
@@ -99,10 +82,6 @@ const Login = () => {
 
 				<button onClick={() => router.push('/')}>
 					Back to home
-				</button>
-
-				<button onClick={() => handleLogout()}>
-					Logout
 				</button>
 			</div>
 
