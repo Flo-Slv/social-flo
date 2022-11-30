@@ -1,10 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import '../../styles/navbar.scss';
 
 const NavContent = ({ currentUser }) => {
+	const [isActive, setIsActive] = useState(Boolean(false));
+
 	const router = useRouter();
 
 	const handleLogout = () => {
@@ -24,13 +27,30 @@ const NavContent = ({ currentUser }) => {
 		});
 	};
 
+	const toggleActive = () => setIsActive(isActive => !isActive);
+
 	return (
-		<nav className={'navbar'}>
-			<ul>
-				<li>Profile</li>
-				<li onClick={() => handleLogout()}>Logout</li>
+		<div
+			className={`${isActive ? 'nav-container-active' : ''} nav-container`}
+		>
+			<a
+				href='#'
+				className={`${isActive ? 'nav-active' : ''} nav-toggle`}
+				onClick={() => toggleActive()}
+			>
+				<span className={'nav-icon'}></span>
+			</a>
+
+			<ul className={`${isActive ? 'nav-content-active' : ''} nav-content`}>
+				<li>
+					Profile
+				</li>
+
+				<li onClick={() => handleLogout()}>
+					Logout
+				</li>
 			</ul>
-		</nav>
+		</div>
 	);
 };
 
