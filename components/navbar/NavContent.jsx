@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import '../../styles/navbar.scss';
@@ -42,17 +43,17 @@ const NavContent = ({ currentUser }) => {
 
 			<ul className={`nav-content${isActive ? ' nav-content-active' : ''}`}>
 				<li>
-					<a>
+					<Link href='/'>
 						<i className='fa fa-home' style={{ '--i': 1}}></i>
 						<span style={{ '--g': 1 }}>Homepage</span>
-					</a>
+					</Link>
 				</li>
 
 				<li>
-					<a>
+					<Link href={`/profile/${currentUser.id}`}>
 						<i className='fa fa-user' style={{ '--i': 2}}></i>
 						<span style={{ '--g': 2 }}>Profile</span>
-					</a>
+					</Link>
 				</li>
 
 				<li onClick={() => handleLogout()}>
