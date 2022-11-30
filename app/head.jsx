@@ -19,6 +19,12 @@ const Head = () => {
 
 			<link
 				rel='stylesheet'
+				href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'
+				precedence='default'
+			/>
+
+			<link
+				rel='stylesheet'
 				href='https://fonts.cdnfonts.com/css/gotham-rounded'
 				precedence='default'
 			/>
