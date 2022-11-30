@@ -1,7 +1,8 @@
 'use client';
 
-import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useContext, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -87,12 +88,16 @@ const CreateAccount = () => {
 			)}
 
 			<div className={'login-buttons'}>
-				<button onClick={() => router.push('/login')}>
-					Login
+				<button>
+					<Link href='/login'>
+						Login
+					</Link>
 				</button>
 
-				<button onClick={() => router.push('/')}>
-					Back to home
+				<button>
+					<Link href='/'>
+						Back to home
+					</Link>
 				</button>
 			</div>
 
