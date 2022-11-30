@@ -10,11 +10,12 @@
 
 	.nav-toggle {
 		position: relative;
-		display: block;
 		width: 70px;
 		height: 70px;
 		border-radius: 50%;
+		border: none;
 		cursor: pointer;
+		background-color: black;
 
 		.nav-icon {
 			position: absolute;
@@ -67,11 +68,44 @@
 	}
 
 	.nav-content {
-		list-style-type: none;
+		list-style: none;
 		visibility: hidden;
 
 		li {
 			cursor: pointer;
+			text-transform: uppercase;
+
+			a {
+				i {
+					position: relative;
+					// display: block;
+					width: 100%;
+					font-size: 18px;
+					padding: 25px 0;
+					color: white;
+					text-align: center;
+					transform: scale(0);
+
+					&::after {
+						content: '';
+						position: absolute;
+						top: 50%;
+						right: 0;
+						width: 0;
+						height: 50%;
+						transform: translateY(-50%);
+						background-color: red;
+						border-radius: 8px 0 0 8px;
+					}
+				}
+
+				span {
+					position: absolute;
+					margin: 25px 0;
+					letter-spacing: 1px;
+					font-weight: 500;
+				}
+			}
 		}
 	}
 
@@ -81,5 +115,43 @@
 }
 
 .nav-container-active {
-	height: 420px;
+	height: 280px;
+
+	.nav-content {
+		li {
+			a {
+				i {
+					transform: scale(1);
+					transition: .4s ease;
+					transition-delay: calc(.08s * var(--i));
+				}
+
+				span {
+					transform: translateX(15px);
+					transition: .4s ease;
+					transition-delay: calc(.08s * var(--g));
+				}
+			}
+
+			&:hover {
+				a {
+					i {
+						color: red;
+						transition: .2s ease;
+
+						&::after {
+							width: 8px;
+							transition: .3s;
+						}
+					}
+
+					span {
+						transform: translateX(30px);
+						transition: .2s ease;
+						color: red;
+					}
+				}
+			}
+		}
+	}
 }

@@ -31,23 +31,39 @@ const NavContent = ({ currentUser }) => {
 
 	return (
 		<div
-			className={`${isActive ? 'nav-container-active' : ''} nav-container`}
+			className={`nav-container${isActive ? ' nav-container-active' : ''}`}
 		>
-			<a
-				href='#'
-				className={`${isActive ? 'nav-active' : ''} nav-toggle`}
+			<button
+				className={`nav-toggle${isActive ? ' nav-active' : ''}`}
 				onClick={() => toggleActive()}
 			>
 				<span className={'nav-icon'}></span>
-			</a>
+			</button>
 
-			<ul className={`${isActive ? 'nav-content-active' : ''} nav-content`}>
+			<ul className={`nav-content${isActive ? ' nav-content-active' : ''}`}>
 				<li>
-					Profile
+					<a>
+						<i className='fa fa-home' style={{ '--i': 1}}></i>
+						<span style={{ '--g': 1 }}>Homepage</span>
+					</a>
+				</li>
+
+				<li>
+					<a>
+						<i className='fa fa-user' style={{ '--i': 2}}></i>
+						<span style={{ '--g': 2 }}>Profile</span>
+					</a>
 				</li>
 
 				<li onClick={() => handleLogout()}>
-					Logout
+					<a>
+						<i
+							className='fa-solid fa-right-from-bracket'
+							style={{ '--i': 3 }}
+							>
+						</i>
+						<span style={{ '--g': 3 }}>Logout</span>
+					</a>
 				</li>
 			</ul>
 		</div>
