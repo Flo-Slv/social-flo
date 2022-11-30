@@ -53,15 +53,16 @@
 		.nav-icon {
 			width: 0;
 
-			&::before {
+			&::before, &::after {
 				width: 40px;
 				transform-origin: right;
+			}
+
+			&::before {
 				transform: translate(-25px, 4px) rotate(45deg);
 			}
 
 			&::after {
-				width: 40px;
-				transform-origin: right;
 				transform: translate(-25px, -6px) rotate(-45deg);
 			}
 		}
@@ -78,7 +79,6 @@
 			a {
 				i {
 					position: relative;
-					// display: block;
 					width: 100%;
 					font-size: 18px;
 					padding: 25px 0;
