@@ -1,8 +1,10 @@
 import { cookies } from 'next/headers';
+import React from 'react';
 
 import verifyJwt from '../utils/jose/verifyJwt.js';
 
-import { ThemeProvider } from '../context/theme/theme-provider.jsx';
+import { ThemeProvider } from '../context/theme/themeProvider.jsx';
+import { CurrentUserProvider } from '../context/currentUser/currentUserProvider.jsx';
 
 import Navbar from '../components/navbar/Navbar.jsx';
 
@@ -25,7 +27,13 @@ const RootLayout = async ({ children }) => {
 			<body>
 				<ThemeProvider>
 					<Navbar currentUser={currentUser} />
-					{children}
+					<CurrentUserProvider>
+						{
+						  React.cloneElement(children, {
+							  currentUser: currentUser
+						  })
+					  }
+					</CurrentUserProvider>
 				</ThemeProvider>
 			</body>
 		</html>

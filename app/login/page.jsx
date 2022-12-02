@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 
 import Image from 'next/image';
 
-import { ThemeContext } from '../../context/theme/theme-provider.jsx';
+import { ThemeContext } from '../../context/theme/themeProvider.jsx';
 
 import '/styles/login.scss';
 
