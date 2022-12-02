@@ -7,8 +7,8 @@ import '../../styles/profile.scss';
 
 const Profile = () => {
 	const { currentUser } = useContext(CurrentUserContext);
+	console.log('profile currentUser: ', currentUser);
 
-	console.log({currentUser});
 	return (
 		<div>
 			<div>
