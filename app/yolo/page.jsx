@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
+import validator from 'validator';
 
 import Image from 'next/image';
 
@@ -26,9 +27,9 @@ const CreateAccount = () => {
 		const formData = new FormData(e.target);
 
 		const data = {
-			email: formData.get('email'),
-			password: formData.get('password'),
-			confirm_password: formData.get('confirm_password')
+			email: validator.escape(formData.get('email')),
+			password: validator.escape(formData.get('password')),
+			confirm_password: validator.escape(formData.get('confirm_password'))
 		};
 
 		// Try to create an account.

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
+import validator from 'validator';
 
 import Image from 'next/image';
 
@@ -25,9 +26,10 @@ const Login = () => {
 
 		const formData = new FormData(e.target);
 
+		// Use validator to avoid xss attacks.
 		const data = {
-			email: formData.get('email'),
-			password: formData.get('password')
+			email: validator.escape(formData.get('email')),
+			password: validator.escape(formData.get('password'))
 		};
 
 		// Try to login.
