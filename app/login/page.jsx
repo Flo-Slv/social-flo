@@ -46,6 +46,7 @@ const Login = () => {
 				}
 
 				// Redirect to profile if ok.
+				// refresh() to force Root Layout to get jwt cookie.
 				router.refresh('/');
 			});
 	};
