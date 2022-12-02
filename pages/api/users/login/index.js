@@ -23,17 +23,27 @@ const handler = async (req, res) => {
 				.setIssuedAt()
 				.setIssuer()
 				.setAudience()
-				// 30 days, divide by 1000 to be based on 'epoch' UNIX time.
+				// 30 days - divide by 1000 to be based on 'epoch' UNIX time.
 				.setExpirationTime(Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30)
 				.sign(secret);
+
+			const env = process.env.NODE_ENV;
 
 			setCookie('currentUser', jwt, {
 				req,
 				res,
+				// httpOnly: Boolean(true) to avoid basics xss attacks via js.
+				// But, we can't access to currentUser in Client Component...
+				// So I did a trick inside Root Layout to get currentUser.
 				httpOnly: Boolean(true),
-				secure: process.env.NODE_ENV !== 'development',
+				// secure: Boolean(true) in prod only, force to use https.
+				secure: env !== 'development',
+				// sameSite: 'strict' to avoid attacks
+				// ('lax' or 'strict' ? need to test it more).
 				sameSite: 'strict',
-				maxAge: 60 * 60 * 24 * 30,
+				// domain: IN PROD, CHANGE TO CORRECT DOMAIN !
+				domain: env === 'development' ? 'localhost' : 'https://flo-slv.dev',
+				maxAge: 60 * 60 * 24 * 30, // 30 days
 				path: '/'
 			});
 
