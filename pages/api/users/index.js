@@ -3,7 +3,7 @@ import {
 	createUser,
 	getUserById,
 	removeUserById
-} from '/prisma/utils/users.js';
+} from '../../../prisma/utils/users.js';
 
 import verifyJwt from '../../../utils/jose/verifyJwt.js';
 
