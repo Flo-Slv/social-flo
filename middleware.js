@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import verifyJwt from './utils/jose/verifyJwt.js';
 
 const publicRoutes = ['/login', '/yolo'];
-const protectedRoutes = ['/'];
+const protectedRoutes = ['/', '/profile'];
 
 export const middleware = async request => {
 	const hasJWT = request.cookies.has('currentUser');

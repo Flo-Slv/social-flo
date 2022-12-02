@@ -50,7 +50,7 @@ const NavContent = ({ currentUser }) => {
 				</li>
 
 				<li>
-					<Link href={`/profile/${currentUser.id}`}>
+					<Link href='/profile'>
 						<i className='fa fa-user' style={{ '--i': 2}}></i>
 						<span style={{ '--g': 2 }}>Profile</span>
 					</Link>
