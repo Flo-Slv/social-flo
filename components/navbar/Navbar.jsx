@@ -6,7 +6,7 @@ const Navbar = ({ currentUser }) => {
 	return (
 		<>
 			{Object.keys(currentUser).length !== 0 ? (
-				<NavContent currentUser={currentUser} />
+				<NavContent />
 			) : null}
 		</>
 	);

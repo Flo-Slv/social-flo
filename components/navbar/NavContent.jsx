@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import '../../styles/navbar.scss';
 
-const NavContent = ({ currentUser }) => {
+const NavContent = () => {
 	const [isActive, setIsActive] = useState(Boolean(false));
 
 	const router = useRouter();
