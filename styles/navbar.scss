@@ -1,3 +1,8 @@
+$color1: #002749;
+$color2: #0060a0;
+$color3: #00a1ff;
+$color4: #00ebff;
+
 .nav-container {
 	position: relative;
 	top: 50px;
@@ -5,7 +10,7 @@
 	width: 70px;
 	height: 70px;
 	border-radius: 50px;
-	background-color: black;
+	background-color: $color2;
 	transition: .4s ease;
 
 	.nav-toggle {
@@ -15,7 +20,7 @@
 		border-radius: 50%;
 		border: none;
 		cursor: pointer;
-		background-color: black;
+		background-color: $color2;
 
 		.nav-icon {
 			position: absolute;
@@ -94,7 +99,7 @@
 						width: 0;
 						height: 50%;
 						transform: translateY(-50%);
-						background-color: red;
+						background-color: white;
 						border-radius: 8px 0 0 8px;
 					}
 				}
@@ -130,13 +135,13 @@
 					transform: translateX(15px);
 					transition: .4s ease;
 					transition-delay: calc(.08s * var(--g));
+					color: rgb(255, 255, 255, .5);
 				}
 			}
 
 			&:hover {
 				a {
 					i {
-						color: red;
 						transition: .2s ease;
 
 						&::after {
@@ -148,7 +153,7 @@
 					span {
 						transform: translateX(30px);
 						transition: .2s ease;
-						color: red;
+						color: rgb(255, 255, 255, 1);
 					}
 				}
 			}
