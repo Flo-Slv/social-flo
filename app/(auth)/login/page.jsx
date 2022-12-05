@@ -7,12 +7,12 @@ import validator from 'validator';
 
 import Image from 'next/image';
 
-import { ThemeContext } from '../../context/theme/themeProvider.jsx';
+import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
 
-import '/styles/login.scss';
+import '../../../styles/login.scss';
 
-import lightTheme from '../../public/light-theme.png';
-import darkTheme from '../../public/dark-theme.png';
+import lightTheme from '../../../public/light-theme.png';
+import darkTheme from '../../../public/dark-theme.png';
 
 const Login = () => {
 	const { dark, toggle } = useContext(ThemeContext);
@@ -81,7 +81,7 @@ const Login = () => {
 
 			<div className={'login-buttons'}>
 				<button>
-					<Link href='/yolo'>
+					<Link href='/create'>
 						Create an account
 					</Link>
 				</button>

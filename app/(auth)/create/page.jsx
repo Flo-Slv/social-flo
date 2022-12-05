@@ -7,12 +7,12 @@ import validator from 'validator';
 
 import Image from 'next/image';
 
-import { ThemeContext } from '../../context/theme/themeProvider.jsx';
+import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
 
-import '/styles/login.scss';
+import '../../../styles/login.scss';
 
-import lightTheme from '../../public/light-theme.png';
-import darkTheme from '../../public/dark-theme.png';
+import lightTheme from '../../../public/light-theme.png';
+import darkTheme from '../../../public/dark-theme.png';
 
 const CreateAccount = () => {
 	const { dark, toggle } = useContext(ThemeContext);
@@ -47,7 +47,7 @@ const CreateAccount = () => {
 
 				// Redirect to login if ok.
 				// See if we can pass a message to this new page
-				// like 'User successfully created, you can now log in'a
+				// like 'User successfully created, you can now log in'
 				router.push('/login');
 			});
 	};
