@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import verifyJwt from './utils/jose/verifyJwt.js';
+import verifyJwt from './utils/jose/verify-jwt.js';
 
 const publicRoutes = ['/', '/sign-in', '/sign-up', '/football', '/rugby', '/judo'];
 const protectedRoutes = ['/profile', '/sports', '/todo'];

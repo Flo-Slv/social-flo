@@ -7,7 +7,7 @@ import validator from 'validator';
 
 import Image from 'next/image';
 
-import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
+import { ThemeContext } from '../../../context/theme/theme-provider.jsx';
 
 import '../../../styles/frontend/sign-in.scss';
 

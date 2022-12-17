@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
 import React from 'react';
 
-import verifyJwt from '../utils/jose/verifyJwt.js';
+import verifyJwt from '../utils/jose/verify-jwt.js';
 
-import { ThemeProvider } from '../context/theme/themeProvider.jsx';
-import { CurrentUserProvider } from '../context/currentUser/currentUserProvider.jsx';
+import { ThemeProvider } from '../context/theme/theme-provider.jsx';
+import { CurrentUserProvider } from '../context/current-user/current-user-provider.jsx';
 
 import Navbar from '../components/navbar/Navbar.jsx';
 
