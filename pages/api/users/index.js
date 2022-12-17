@@ -1,8 +1,4 @@
-import {
-	getUsers,
-	getUserById,
-	removeUserById
-} from '../../../prisma/utils/users.js';
+import { getUsers, getUserById } from '../../../prisma/utils/users.js';
 
 import verifyJwt from '../../../utils/jose/verifyJwt.js';
 
@@ -46,23 +42,7 @@ const handler = async (req, res) => {
 		}
 	}
 
-	if (req.method === 'DELETE') {
-		try {
-			const { user, error } = await removeUserById(req.query.id);
-
-			if (error) throw new Error(error);
-
-			return res.status(200).json({
-				message: 'User successfully deleted !',
-				user
-			});
-		}
-		catch (error) {
-			return res.status(500).json({ error: error.message });
-		}
-	}
-
-	res.setHeader('Allow', ['GET', 'DELETE']);
+	res.setHeader('Allow', ['GET']);
 	res.status(405).end(`Method ${req.method} is not allowed.`);
 };
 
