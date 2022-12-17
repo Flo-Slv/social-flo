@@ -33,7 +33,7 @@ const SignUp = () => {
 		};
 
 		// Try to create an account.
-		fetch('/api/users', {
+		fetch('/api/users/sign-up', {
 			body: JSON.stringify(data),
 			headers: { 'Content-Type': 'application/json' },
 			method: 'POST'

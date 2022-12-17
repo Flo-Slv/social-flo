@@ -1,6 +1,5 @@
 import {
 	getUsers,
-	signUp,
 	getUserById,
 	removeUserById
 } from '../../../prisma/utils/users.js';
@@ -47,24 +46,6 @@ const handler = async (req, res) => {
 		}
 	}
 
-	if (req.method === 'POST') {
-		try {
-			const data = req.body;
-			
-			const { user, error } = await signUp(data);
-
-			if (error) throw new Error(error);
-
-			return res.status(200).json({ 
-				message: 'User successfully created !',
-				user
-			});
-		}
-		catch (error) {
-			return res.status(500).json({ error: error.message });
-		}
-	}
-
 	if (req.method === 'DELETE') {
 		try {
 			const { user, error } = await removeUserById(req.query.id);
@@ -81,7 +62,7 @@ const handler = async (req, res) => {
 		}
 	}
 
-	res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
+	res.setHeader('Allow', ['GET', 'DELETE']);
 	res.status(405).end(`Method ${req.method} is not allowed.`);
 };
 
