@@ -9,12 +9,12 @@ import Image from 'next/image';
 
 import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
 
-import '../../../styles/login.scss';
+import '../../../styles/sign-in.scss';
 
 import lightTheme from '../../../public/light-theme.png';
 import darkTheme from '../../../public/dark-theme.png';
 
-const Login = () => {
+const SignIn = () => {
 	const { dark, toggle } = useContext(ThemeContext);
 
 	const [error, setError] = useState('');
@@ -33,7 +33,7 @@ const Login = () => {
 		};
 
 		// Try to login.
-		fetch('/api/users/login', {
+		fetch('/api/users/sign-in', {
 			body: JSON.stringify(data),
 			headers: { 'Content-Type': 'application/json' },
 			method: 'POST'
@@ -53,7 +53,7 @@ const Login = () => {
 
 	return (
 		<div className={`login ${dark ? 'dark-mode' : 'light-mode'}`}>
-			<h1>Social Flo</h1>
+			<h1>Sign in</h1>
 
 			<form onSubmit={handleSubmit} autoComplete={'off'}>
 				<input
@@ -81,7 +81,7 @@ const Login = () => {
 
 			<div className={'login-buttons'}>
 				<button>
-					<Link href='/create'>
+					<Link href='/sign-up'>
 						Create an account
 					</Link>
 				</button>
@@ -106,4 +106,4 @@ const Login = () => {
 	)
 };
 
-export default Login;
+export default SignIn;

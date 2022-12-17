@@ -1,6 +1,6 @@
 import {
 	getUsers,
-	createUser,
+	signUp,
 	getUserById,
 	removeUserById
 } from '../../../prisma/utils/users.js';
@@ -51,7 +51,7 @@ const handler = async (req, res) => {
 		try {
 			const data = req.body;
 			
-			const { user, error } = await createUser(data);
+			const { user, error } = await signUp(data);
 
 			if (error) throw new Error(error);
 

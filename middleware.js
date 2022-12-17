@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import verifyJwt from './utils/jose/verifyJwt.js';
 
-const publicRoutes = ['/login', '/yolo'];
+const publicRoutes = ['/sign-in', '/sign-up'];
 const protectedRoutes = ['/', '/profile'];
 
 export const middleware = async request => {
@@ -10,7 +10,7 @@ export const middleware = async request => {
 
 	// Redirect to login page if not logged.
 	if (protectedRoutes.includes(request.nextUrl.pathname) && !hasJWT)
-		return NextResponse.redirect(new URL('/login', request.url));
+		return NextResponse.redirect(new URL('/sign-in', request.url));
 
 	// Redirect to homepage if already logged.
 	if (publicRoutes.includes(request.nextUrl.pathname) && hasJWT) {

@@ -1,14 +1,14 @@
 import { SignJWT } from 'jose';
 import { setCookie } from 'cookies-next';
 
-import { login } from '../../../../prisma/utils/users.js';
+import { signIn } from '../../../../prisma/utils/users.js';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 		try {
 			const data = req.body;
 			
-			const { user, error } = await login(data);
+			const { user, error } = await signIn(data);
 
 			if (error) throw new Error(error);
 

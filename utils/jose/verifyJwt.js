@@ -10,7 +10,7 @@ const verifyJwt = async (jwt, from, res = null) => {
 
 		// jwt expired.
 		if (currentDate > payload.exp && from === 'middleware')
-			return res.redirect(new URL('/login'), request.url); // res = NextResponse
+			return res.redirect(new URL('/sign-in'), request.url); // res = NextResponse
 
 		if (currentDate > payload.exp && from === 'api')
 			return res.status(500).json({ error: 'Token expired '});

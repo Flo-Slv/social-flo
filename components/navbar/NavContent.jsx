@@ -12,7 +12,7 @@ const NavContent = () => {
 	const router = useRouter();
 
 	const handleLogout = () => {
-		fetch('/api/users/logout', {
+		fetch('/api/users/sign-out', {
 			headers: { 'Content-Type': 'application/json'},
 			method: 'GET'
 		})
@@ -24,7 +24,7 @@ const NavContent = () => {
 				}
 
 				// Redirect to homepage if ok.
-				router.refresh('/login');
+				router.refresh('/sign-in');
 		});
 	};
 

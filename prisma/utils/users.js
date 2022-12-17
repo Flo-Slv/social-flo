@@ -22,7 +22,7 @@ export const getUserById = async id => {
 	}
 };
 
-export const createUser = async user => {
+export const signUp = async user => {
 	try {
 		const email = user.email.trim();
 		const password = user.password.trim();
@@ -67,7 +67,7 @@ export const createUser = async user => {
 	}
 };
 
-export const login = async user => {
+export const signIn = async user => {
 	try {
 		const email = user.email.trim();
 		const password = user.password.trim();

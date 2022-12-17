@@ -10,9 +10,13 @@ const Profile = () => {
 	console.log('profile currentUser: ', currentUser);
 
 	return (
-		<div>
+		<div className={'test'}>
 			<div>
-				Name:
+				Name: {currentUser.name || 'no name yet...'} 
+			</div>
+
+			<div>
+				Email: {currentUser.email}
 			</div>
 		</div>
 	);

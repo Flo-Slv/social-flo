@@ -9,12 +9,12 @@ import Image from 'next/image';
 
 import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
 
-import '../../../styles/login.scss';
+import '../../../styles/sign-in.scss';
 
 import lightTheme from '../../../public/light-theme.png';
 import darkTheme from '../../../public/dark-theme.png';
 
-const CreateAccount = () => {
+const SignUp = () => {
 	const { dark, toggle } = useContext(ThemeContext);
 
 	const [error, setError] = useState('');
@@ -48,13 +48,13 @@ const CreateAccount = () => {
 				// Redirect to login if ok.
 				// See if we can pass a message to this new page
 				// like 'User successfully created, you can now log in'
-				router.push('/login');
+				router.push('/sign-in');
 			});
 	};
 
 	return (
 		<div className={`login ${dark ? 'dark-mode' : 'light-mode'}`}>
-			<h1>Social Flo</h1>
+			<h1>Sign up</h1>
 
 			<form onSubmit={handleSubmit} autoComplete={'off'}>
 				<input
@@ -90,8 +90,8 @@ const CreateAccount = () => {
 
 			<div className={'login-buttons'}>
 				<button>
-					<Link href='/login'>
-						Login
+					<Link href='/sign-in'>
+						Sign-in
 					</Link>
 				</button>
 
@@ -115,4 +115,4 @@ const CreateAccount = () => {
 	)
 };
 
-export default CreateAccount;
+export default SignUp;
