@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 
 import verifyJwt from './utils/jose/verifyJwt.js';
 
-const publicRoutes = ['/sign-in', '/sign-up'];
-const protectedRoutes = ['/', '/profile'];
+const publicRoutes = ['/', '/sign-in', '/sign-up', '/football', '/rugby', '/judo'];
+const protectedRoutes = ['/profile', '/sports', '/todo'];
 
 export const middleware = async request => {
 	const hasJWT = request.cookies.has('currentUser');
@@ -19,6 +19,6 @@ export const middleware = async request => {
 
 		const isVerified = await verifyJwt(jwt, 'middleware', NextResponse);
 
-		if (isVerified) return NextResponse.redirect(new URL('/', request.url));
+		if (isVerified) return NextResponse.redirect(new URL('/profile', request.url));
 	}
 };

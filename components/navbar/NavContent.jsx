@@ -24,7 +24,7 @@ const NavContent = () => {
 				}
 
 				// Redirect to homepage if ok.
-				router.refresh('/sign-in');
+				router.refresh('/');
 		});
 	};
 
@@ -43,16 +43,23 @@ const NavContent = () => {
 
 			<ul className={`nav-content${isActive ? ' nav-content-active' : ''}`}>
 				<li>
-					<Link href='/'>
-						<i className='fa fa-home' style={{ '--i': 1}}></i>
-						<span style={{ '--g': 1 }}>Homepage</span>
+					<Link href='/profile'>
+						<i className='fa fa-user' style={{ '--i': 2}}></i>
+						<span style={{ '--g': 2 }}>Profile</span>
 					</Link>
 				</li>
 
 				<li>
-					<Link href='/profile'>
-						<i className='fa fa-user' style={{ '--i': 2}}></i>
-						<span style={{ '--g': 2 }}>Profile</span>
+					<Link href='/sports'>
+						<i className='fa fa-medal' style={{ '--i': 1}}></i>
+						<span style={{ '--g': 1 }}>Sports</span>
+					</Link>
+				</li>
+
+				<li>
+					<Link href='/todo'>
+						<i className='fa fa-list' style={{ '--i': 1}}></i>
+						<span style={{ '--g': 1 }}>To do</span>
 					</Link>
 				</li>
 
