@@ -1,9 +1,9 @@
 'use client';
 
 import { useContext } from 'react';
-import { CurrentUserContext } from '../../context/currentUser/currentUserProvider.jsx';
+import { CurrentUserContext } from '../../../context/currentUser/currentUserProvider.jsx';
 
-import '../../styles/profile.scss';
+import '../../../styles/profile.scss';
 
 const Profile = () => {
 	const { currentUser } = useContext(CurrentUserContext);
