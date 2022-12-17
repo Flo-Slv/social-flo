@@ -1,5 +1,5 @@
 
-import { getUsers } from '../../../prisma/utils/users.js';
+import { getUsers } from '../../../../prisma/utils/users.js';
 
 import isUserLogged from '../../../../utils/jose/is-user-logged.js';
 

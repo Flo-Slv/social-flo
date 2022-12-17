@@ -1,4 +1,4 @@
-import verifyJwt from './verifyJwt.js';
+import verifyJwt from './verify-jwt.js';
 
 const isUserLogged = async (req, res) => {
 	const { cookies } = req;
