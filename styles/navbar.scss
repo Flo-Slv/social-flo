@@ -109,6 +109,8 @@ $color4: #00ebff;
 					margin: 25px 0;
 					letter-spacing: 1px;
 					font-weight: 500;
+					color: rgb(255, 255, 255, .5);
+					width: 100px;
 				}
 			}
 		}
@@ -120,7 +122,7 @@ $color4: #00ebff;
 }
 
 .nav-container-active {
-	height: 280px;
+	height: 340px;
 
 	.nav-content {
 		li {
