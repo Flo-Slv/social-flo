@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import '../../styles/navbar.scss';
+import '../../styles/backend/navbar.scss';
 
 const NavContent = () => {
 	const [isActive, setIsActive] = useState(Boolean(false));

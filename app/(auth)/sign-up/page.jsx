@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 import { ThemeContext } from '../../../context/theme/themeProvider.jsx';
 
-import '../../../styles/sign-in.scss';
+import '../../../styles/frontend/sign-in.scss';
 
 import lightTheme from '../../../public/light-theme.png';
 import darkTheme from '../../../public/dark-theme.png';
