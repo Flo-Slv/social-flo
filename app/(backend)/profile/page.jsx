@@ -3,14 +3,14 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from '../../../context/current-user/current-user-provider.jsx';
 
-import '../../../styles/backend/profile.scss';
+import styles from '../../../styles/backend/profile.module.scss';
 
 const Profile = () => {
 	const { currentUser } = useContext(CurrentUserContext);
 	console.log('profile currentUser: ', currentUser);
 
 	return (
-		<div className={'test'}>
+		<div className={styles.profile}>
 			<div>
 				Name: {currentUser.name || 'no name yet...'} 
 			</div>
