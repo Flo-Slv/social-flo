@@ -5,9 +5,14 @@ This is a [Next.js](https://nextjs.org/) 13 project bootstrapped with [`create-n
 
 ## Getting Started
 
-First, run the development server:
+First you need to install packages.
+```sh
+npm install
+```
 
-```bash
+Then, run the development server:
+
+```sh
 npm run dev
 ```
 
