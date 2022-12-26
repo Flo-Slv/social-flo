@@ -1,61 +1,60 @@
-import { SignJWT } from 'jose';
-import { setCookie } from 'cookies-next';
+import { SignJWT } from "jose";
+import { setCookie } from "cookies-next";
 
-import { signIn } from '../../../../prisma/utils/users.js';
+import { signIn } from "../../../../prisma/utils/users.js";
 
 const handler = async (req, res) => {
-	if (req.method === 'POST') {
-		try {
-			const data = req.body;
-			
-			const { user, error } = await signIn(data);
+  if (req.method === "POST") {
+    try {
+      const data = req.body;
 
-			if (error) throw new Error(error);
+      const { user, error } = await signIn(data);
 
-			const secret = new TextEncoder().encode(process.env.SECRET_KEY);
+      if (error) throw new Error(error);
 
-			const jwt = await new SignJWT({
-				id: user.id,
-				email: user.email,
-				name: user.name ?? ''
-			})
-				.setProtectedHeader({ alg: 'HS256' })
-				.setIssuedAt()
-				.setIssuer()
-				.setAudience()
-				// 30 days - divide by 1000 to be based on 'epoch' UNIX time.
-				.setExpirationTime(Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30)
-				.sign(secret);
+      const secret = new TextEncoder().encode(process.env.SECRET_KEY);
 
-			const env = process.env.NODE_ENV;
+      const jwt = await new SignJWT({
+        id: user.id,
+        email: user.email,
+        name: user.name ?? "",
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setIssuer()
+        .setAudience()
+        // 30 days - divide by 1000 to be based on 'epoch' UNIX time.
+        .setExpirationTime(Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30)
+        .sign(secret);
 
-			setCookie('currentUser', jwt, {
-				req,
-				res,
-				// httpOnly: Boolean(true) to avoid basics xss attacks via js.
-				// But, we can't access to currentUser in Client Component...
-				// So I did a trick inside Root Layout to get currentUser.
-				httpOnly: Boolean(true),
-				// secure: Boolean(true) in prod only, force to use https.
-				secure: env !== 'development',
-				// sameSite: 'strict' to avoid attacks
-				// ('lax' or 'strict' ? need to test it more).
-				sameSite: 'strict',
-				// domain: IN PROD, CHANGE TO CORRECT DOMAIN !
-				domain: env === 'development' ? 'localhost' : 'https://flo-slv.dev',
-				maxAge: 60 * 60 * 24 * 30, // 30 days
-				path: '/'
-			});
+      const env = process.env.NODE_ENV;
 
-			return res.status(200).json({ message: 'User successfully login !' });
-		}
-		catch (error) {
-			return res.status(500).json({ error: error.message });
-		}
-	}
+      setCookie("currentUser", jwt, {
+        req,
+        res,
+        // httpOnly: Boolean(true) to avoid basics xss attacks via js.
+        // But, we can't access to currentUser in Client Component...
+        // So I did a trick inside Root Layout to get currentUser.
+        httpOnly: Boolean(true),
+        // secure: Boolean(true) in prod only, force to use https.
+        secure: env !== "development",
+        // sameSite: 'strict' to avoid attacks
+        // ('lax' or 'strict' ? need to test it more).
+        sameSite: "strict",
+        // domain: IN PROD, CHANGE TO CORRECT DOMAIN !
+        domain: env === "development" ? "localhost" : "https://flo-slv.dev",
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: "/",
+      });
 
-	res.setHeader('Allow', ['POST']);
-	res.status(405).end(`Method ${req.method} is not allowed.`);
+      return res.status(200).json({ message: "User successfully login !" });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  res.setHeader("Allow", ["POST"]);
+  res.status(405).end(`Method ${req.method} is not allowed.`);
 };
 
 export default handler;
