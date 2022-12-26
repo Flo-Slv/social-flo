@@ -1,5 +1,5 @@
-# social-flo
-Building an social network with Next.js 13
+# palmares.info
+Building website `palmares.info` with Next.js 13.
 
 This is a [Next.js](https://nextjs.org/) 13 project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
