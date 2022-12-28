@@ -14,12 +14,30 @@ import "../../../styles/frontend/sign-in.scss";
 import lightTheme from "../../../public/light-theme.png";
 import darkTheme from "../../../public/dark-theme.png";
 
+const login = (data, refresh, setError) => {
+  // Try to login.
+  fetch("/api/users/sign-in", {
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        setError(res.error);
+        return null;
+      }
+
+      // Redirect to profile if ok.
+      // refresh() to force Root Layout to get jwt cookie.
+      refresh("/");
+    });
+};
+
 const SignIn = () => {
-  const { dark, toggle } = useContext(ThemeContext);
-
-  const [error, setError] = useState("");
-
   const router = useRouter();
+  const { dark, toggle } = useContext(ThemeContext);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,23 +50,7 @@ const SignIn = () => {
       password: validator.escape(formData.get("password")),
     };
 
-    // Try to login.
-    fetch("/api/users/sign-in", {
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          setError(res.error);
-          return null;
-        }
-
-        // Redirect to profile if ok.
-        // refresh() to force Root Layout to get jwt cookie.
-        router.refresh("/");
-      });
+    login(data, router.refresh, setError);
   };
 
   return (
