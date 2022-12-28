@@ -9,7 +9,9 @@ const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
-    <div className={styles.profile}>
+    <div
+      className={`${styles.profile} flex flex-col items-center justify-center h-screen`}
+    >
       <div>Name: {currentUser?.name || "no name yet..."}</div>
 
       <div>Email: {currentUser?.email}</div>
