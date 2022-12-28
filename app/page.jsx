@@ -7,7 +7,7 @@ const Home = () => {
   const { currentUser } = useContext(CurrentUserContext);
   console.log("homepage currentUser: ", currentUser);
 
-  return <div className={"homepage"}>Homepage</div>;
+  return <div className={"underline"}>Homepage</div>;
 };
 
 export default Home;
