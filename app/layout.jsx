@@ -27,10 +27,8 @@ const RootLayout = async ({ children }) => {
       <body>
         <ThemeProvider>
           <Navbar currentUser={currentUser} />
-          <CurrentUserProvider>
-            {React.cloneElement(children, {
-              currentUser: currentUser,
-            })}
+          <CurrentUserProvider currentUser={currentUser}>
+            {children}
           </CurrentUserProvider>
         </ThemeProvider>
       </body>

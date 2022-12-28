@@ -7,7 +7,6 @@ import styles from "../../../styles/backend/profile.module.scss";
 
 const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
-  console.log("profile currentUser: ", currentUser);
 
   return (
     <div className={styles.profile}>
