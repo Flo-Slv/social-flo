@@ -4,202 +4,202 @@ $color3: #00a1ff;
 $color4: #00ebff;
 
 .login {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-	h1 {
-		font-family: 'Lobster';
-		font-size: 50px;
-	}
+  h1 {
+    font-family: "Lobster";
+    font-size: 50px;
+  }
 
-	form {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 50px 25px 0 25px;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 25px 0 25px;
 
-		input {
-			border-radius: 5px;
-			padding: 5px;
-			margin-bottom: 20px;
-			background-color: $color2;
-			color: #fff;
+    input {
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 20px;
+      background-color: $color2;
+      color: #fff;
 
-			&::placeholder {
-				font-weight: bold;
-				text-align: center;
-				opacity: .6;
-				color: #fff;
-			}
+      &::placeholder {
+        font-weight: bold;
+        text-align: center;
+        opacity: 0.6;
+        color: #fff;
+      }
 
-			&:focus {
-				outline: none;
-			}
-		}
+      &:focus {
+        outline: none;
+      }
+    }
 
-		button {
-			min-width: 130px;
-			height: 40px;
-			margin-top: 20px;
-			padding: 5px 10px;
-			font-weight: bold;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			position: relative;
-			display: inline-block;
-			outline: none;
-			border-radius: 5px;
-			z-index: 0;
-			overflow: hidden;
+    button {
+      min-width: 130px;
+      height: 40px;
+      margin-top: 20px;
+      padding: 5px 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: inline-block;
+      outline: none;
+      border-radius: 5px;
+      z-index: 0;
+      overflow: hidden;
 
-			&:hover:after {
-				width: 100%;
-			}
+      &:hover:after {
+        width: 100%;
+      }
 
-			&:after {
-				content: '';
-				position: absolute;
-				z-index: -1;
-				transition: all 0.3s ease;
-				right: 0;
-				top: 0;
-				width: 0;
-				height: 100%;
-			}
-		}
-	}
+      &:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        transition: all 0.3s ease;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+      }
+    }
+  }
 
-	.login-buttons {
-		margin-top: 30px;
+  .login-buttons {
+    margin-top: 30px;
 
-		button {
-			min-width: 100px;
-			height: 30px;
-			padding: 5px 10px;
-			font-weight: bold;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			position: relative;
-			display: inline-block;
-			outline: none;
-			border-radius: 5px;
+    button {
+      min-width: 100px;
+      height: 30px;
+      padding: 5px 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: inline-block;
+      outline: none;
+      border-radius: 5px;
 
-			&:hover {
-				background: $color2;
-				color: #fff;
-			}
+      &:hover {
+        background: $color2;
+        color: #fff;
+      }
 
-			&:first-child {
-				margin-right: 10px;
-			}
-		}
-	}
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
 
-	.login-image {
-		position: absolute;
-		bottom: 25px;
-		cursor: pointer;
+  .login-image {
+    position: absolute;
+    bottom: 25px;
+    cursor: pointer;
 
-		&:hover {
-			transform: scale(1.1);
-			transition: all .2s ease-in-out;
-		}
-	}
+    &:hover {
+      transform: scale(1.1);
+      transition: all 0.2s ease-in-out;
+    }
+  }
 }
 
 .dark-mode {
-	h1 {
-		color: #fff;
-	}
+  h1 {
+    color: #fff;
+  }
 
-	form {
-		input {
-			border: 1px solid $color2;
+  form {
+    input {
+      border: 1px solid $color2;
 
-			&:hover {
-				border: 1px solid rgba(255, 255, 255, .4);
-			}
+      &:hover {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
 
-			&:focus {
-				background-color: $color2;
-				border: 1px solid #fff;
-			}
-		}
+      &:focus {
+        background-color: $color2;
+        border: 1px solid #fff;
+      }
+    }
 
-		button {
-			color: $color1;
-			background-color: #fff;
-			border: 2px solid #fff;
+    button {
+      color: $color1;
+      background-color: #fff;
+      border: 2px solid #fff;
 
-			&:hover {
-				color: #fff;
-				border: 2px solid #fff;
-			}
+      &:hover {
+        color: #fff;
+        border: 2px solid #fff;
+      }
 
-			&:after {
-				background-color: $color2;
-			}
-		}
-	}
+      &:after {
+        background-color: $color2;
+      }
+    }
+  }
 
-	.login-buttons {
-		button {
-			color: $color1;
-			border: 2px solid #fff;
-			background: #fff;
-		}
-	}
+  .login-buttons {
+    button {
+      color: $color1;
+      border: 2px solid #fff;
+      background: #fff;
+    }
+  }
 }
 
 .light-mode {
-	background-color: #f5f5f5;
+  background-color: #f5f5f5;
 
-	h1 {
-		color: $color2;
-	}
+  h1 {
+    color: $color2;
+  }
 
-	form {
-		input {
-			border: 1px solid #fff;
+  form {
+    input {
+      border: 1px solid #fff;
 
-			&:hover {
-				border: 1px solid rgba(0, 39, 73, .4);
- 			}
+      &:hover {
+        border: 1px solid rgba(0, 39, 73, 0.4);
+      }
 
-			&:focus {
-				border: 1px solid $color1;
-			}
-		}
+      &:focus {
+        border: 1px solid $color1;
+      }
+    }
 
-		button {
-			color: #fff;
-			background: #fff;
-			border: 2px solid $color2;
-			color: $color2;
+    button {
+      color: #fff;
+      background: #fff;
+      border: 2px solid $color2;
+      color: $color2;
 
-			&:hover {
-				color: #fff;
-			}
+      &:hover {
+        color: #fff;
+      }
 
-			&:after {
-				transition: all 0.3s ease;
-				left: 0;
-				top: 0;
-				background: $color2;
-			}
-		}
-	}
+      &:after {
+        transition: all 0.3s ease;
+        left: 0;
+        top: 0;
+        background: $color2;
+      }
+    }
+  }
 
-	.login-buttons {
-		button {
-			color: $color2;
-			border: 2px solid $color2;
-			background: #fff;
-		}
-	}
+  .login-buttons {
+    button {
+      color: $color2;
+      border: 2px solid $color2;
+      background: #fff;
+    }
+  }
 }
