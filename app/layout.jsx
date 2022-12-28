@@ -1,43 +1,41 @@
-import { cookies } from 'next/headers';
-import React from 'react';
+import { cookies } from "next/headers";
+import React from "react";
 
-import verifyJwt from '../utils/jose/verify-jwt.js';
+import verifyJwt from "../utils/jose/verify-jwt.js";
 
-import { ThemeProvider } from '../context/theme/theme-provider.jsx';
-import { CurrentUserProvider } from '../context/current-user/current-user-provider.jsx';
+import { ThemeProvider } from "../context/theme/theme-provider.jsx";
+import { CurrentUserProvider } from "../context/current-user/current-user-provider.jsx";
 
-import Navbar from '../components/navbar/Navbar.jsx';
+import Navbar from "../components/navbar/Navbar.jsx";
 
-import '/styles/global.scss';
+import "/styles/global.scss";
 
 const RootLayout = async ({ children }) => {
-	const cookiesList = cookies();
-	const hasCurrentUser = cookiesList.has('currentUser');
-	let currentUser = {};
+  const cookiesList = cookies();
+  const hasCurrentUser = cookiesList.has("currentUser");
+  let currentUser = {};
 
-	if (hasCurrentUser) {
-		const jwt = cookiesList.get('currentUser').value;
-		currentUser = await verifyJwt(jwt, 'layout');
-	}
+  if (hasCurrentUser) {
+    const jwt = cookiesList.get("currentUser").value;
+    currentUser = await verifyJwt(jwt, "layout");
+  }
 
-	return (
-		<html lang='en'>
-			<head />
+  return (
+    <html lang="en">
+      <head />
 
-			<body>
-				<ThemeProvider>
-					<Navbar currentUser={currentUser} />
-					<CurrentUserProvider>
-						{
-						  React.cloneElement(children, {
-							  currentUser: currentUser
-						  })
-					  }
-					</CurrentUserProvider>
-				</ThemeProvider>
-			</body>
-		</html>
-	);
+      <body>
+        <ThemeProvider>
+          <Navbar currentUser={currentUser} />
+          <CurrentUserProvider>
+            {React.cloneElement(children, {
+              currentUser: currentUser,
+            })}
+          </CurrentUserProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 };
 
 export default RootLayout;
