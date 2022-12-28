@@ -1,23 +1,19 @@
-'use client';
+"use client";
 
-import { useContext } from 'react';
-import { CurrentUserContext } from '../../../context/current-user/current-user-provider.jsx';
+import { useContext } from "react";
+import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
 
 const ToDo = () => {
-	const { currentUser } = useContext(CurrentUserContext);
-	console.log('profile currentUser: ', currentUser);
+  const { currentUser } = useContext(CurrentUserContext);
+  console.log("profile currentUser: ", currentUser);
 
-	return (
-		<div className={'to-do'}>
-			<div>
-				Name: {currentUser.name || 'no name yet...'} 
-			</div>
+  return (
+    <div className={"to-do"}>
+      <div>Name: {currentUser?.name || "no name yet..."}</div>
 
-			<div>
-				Email: {currentUser.email}
-			</div>
-		</div>
-	);
+      <div>Email: {currentUser?.email}</div>
+    </div>
+  );
 };
 
 export default ToDo;

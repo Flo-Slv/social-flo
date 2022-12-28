@@ -10,9 +10,9 @@ const Profile = () => {
 
   return (
     <div className={styles.profile}>
-      <div>Name: {currentUser.name || "no name yet..."}</div>
+      <div>Name: {currentUser?.name || "no name yet..."}</div>
 
-      <div>Email: {currentUser.email}</div>
+      <div>Email: {currentUser?.email}</div>
     </div>
   );
 };
