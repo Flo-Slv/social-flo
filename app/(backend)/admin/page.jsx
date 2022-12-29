@@ -16,26 +16,36 @@ const getUsers = async () => {
 const Admin = async () => {
   const users = await getUsers();
 
-  console.log(users);
-
   return (
-    <div>
-      <table>
+    <div
+      className={
+        "flex flex-col justify-center items-center h-screen text-gray-100 gap-y-6"
+      }
+    >
+      <table className={"border table-auto w-96"}>
+        <caption>Users list</caption>
         <thead>
-          <tr>
-            <th>Users list</th>
+          <tr className={""}>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>id</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Role</td>
-          </tr>
+          {users?.map((user, id) => {
+            return (
+              <tr key={id}>
+                <td className={"pl-4"}>{user?.name}</td>
+                <td>{user?.email}</td>
+                <td>{user?.role}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+
+      <div>There are {users.length} users.</div>
     </div>
   );
 };
