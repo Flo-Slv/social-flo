@@ -42,22 +42,29 @@ const NavContent = () => {
       <ul className={`nav-content${isActive ? " nav-content-active" : ""}`}>
         <li>
           <Link href="/profile">
-            <i className="fa fa-user" style={{ "--i": 2 }}></i>
-            <span style={{ "--g": 2 }}>Profile</span>
+            <i className="fa fa-user" style={{ "--i": 1 }}></i>
+            <span style={{ "--g": 1 }}>Profile</span>
           </Link>
         </li>
 
         <li>
           <Link href="/sports">
-            <i className="fa fa-medal" style={{ "--i": 1 }}></i>
-            <span style={{ "--g": 1 }}>Sports</span>
+            <i className="fa fa-medal" style={{ "--i": 2 }}></i>
+            <span style={{ "--g": 2 }}>Sports</span>
           </Link>
         </li>
 
         <li>
           <Link href="/todo">
-            <i className="fa fa-list" style={{ "--i": 1 }}></i>
-            <span style={{ "--g": 1 }}>To do</span>
+            <i className="fa fa-list" style={{ "--i": 3 }}></i>
+            <span style={{ "--g": 3 }}>To do</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="/admin">
+            <i className="fa fa-list" style={{ "--i": 4 }}></i>
+            <span style={{ "--g": 4 }}>Admin</span>
           </Link>
         </li>
 
@@ -65,9 +72,9 @@ const NavContent = () => {
           <a>
             <i
               className="fa-solid fa-right-from-bracket"
-              style={{ "--i": 3 }}
+              style={{ "--i": 5 }}
             ></i>
-            <span style={{ "--g": 3 }}>Logout</span>
+            <span style={{ "--g": 5 }}>Logout</span>
           </a>
         </li>
       </ul>
