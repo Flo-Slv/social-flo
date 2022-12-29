@@ -164,3 +164,46 @@ $color4: #00ebff;
     }
   }
 }
+
+// Bigger height if user is admin to add Admin page.
+.nav-container-active-admin {
+  height: 408px;
+
+  .nav-content {
+    li {
+      a {
+        i {
+          transform: scale(1);
+          transition: 0.4s ease;
+          transition-delay: calc(0.08s * var(--i));
+        }
+
+        span {
+          transform: translateX(15px);
+          transition: 0.4s ease;
+          transition-delay: calc(0.08s * var(--g));
+          color: rgb(255, 255, 255, 0.5);
+        }
+      }
+
+      &:hover {
+        a {
+          i {
+            transition: 0.2s ease;
+
+            &::after {
+              width: 8px;
+              transition: 0.3s;
+            }
+          }
+
+          span {
+            transform: translateX(30px);
+            transition: 0.2s ease;
+            color: rgb(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+  }
+}

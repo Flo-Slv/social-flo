@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import "../../styles/backend/navbar.scss";
 
-const NavContent = () => {
+const NavContent = ({ isAdmin }) => {
   const [isActive, setIsActive] = useState(Boolean(false));
 
   const router = useRouter();
@@ -31,7 +31,15 @@ const NavContent = () => {
   const toggleActive = () => setIsActive((isActive) => !isActive);
 
   return (
-    <div className={`nav-container${isActive ? " nav-container-active" : ""}`}>
+    <div
+      className={`nav-container${
+        isActive && isAdmin
+          ? " nav-container-active-admin"
+          : isActive && !isAdmin
+          ? " nav-container-active"
+          : ""
+      }`}
+    >
       <button
         className={`nav-toggle${isActive ? " nav-active" : ""}`}
         onClick={() => toggleActive()}
@@ -61,13 +69,6 @@ const NavContent = () => {
           </Link>
         </li>
 
-        <li>
-          <Link href="/admin">
-            <i className="fa fa-list" style={{ "--i": 4 }}></i>
-            <span style={{ "--g": 4 }}>Admin</span>
-          </Link>
-        </li>
-
         <li onClick={() => handleLogout()}>
           <a>
             <i
@@ -77,6 +78,15 @@ const NavContent = () => {
             <span style={{ "--g": 5 }}>Logout</span>
           </a>
         </li>
+
+        {isAdmin && (
+          <li>
+            <Link href="/admin">
+              <i className="fa fa-list" style={{ "--i": 4 }}></i>
+              <span style={{ "--g": 4 }}>Admin</span>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );
