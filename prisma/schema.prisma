@@ -7,9 +7,42 @@ datasource db {
 	url = env("DATABASE_URL")
 }
 
+enum UserRole {
+	ADMIN
+	USER
+}
+
+enum PictureType {
+	PROFILE
+	FOOTBALL
+}
+
+type Pictures {
+  height Int
+  width Int
+  url String // base64 ?
+	type PictureType
+}
+
 model User {
 	id String @id @default(auto()) @map("_id") @db.ObjectId
 	email String @unique
 	password String @unique
 	name String?
+	profilePicture ProfilePicture?
+	role UserRole @default(USER)
+}
+
+model ProfilePicture {
+	profilePictureId String @id @default(auto()) @map("_id") @db.ObjectId
+	user User @relation(fields: [profilePictureId], references: [id])
+}
+
+model FootballPicture {
+	footballPictureID String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model Picture {
+	pictureId String @id @default(auto()) @map("_id") @db.ObjectId
+	pictures Pictures[]
 }
