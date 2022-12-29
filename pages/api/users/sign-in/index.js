@@ -18,6 +18,7 @@ const handler = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name ?? "",
+        role: user.role,
       })
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
@@ -33,8 +34,6 @@ const handler = async (req, res) => {
         req,
         res,
         // httpOnly: Boolean(true) to avoid basics xss attacks via js.
-        // But, we can't access to currentUser in Client Component...
-        // So I did a trick inside Root Layout to get currentUser.
         httpOnly: Boolean(true),
         // secure: Boolean(true) in prod only, force to use https.
         secure: env !== "development",
