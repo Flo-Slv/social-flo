@@ -17,13 +17,6 @@ enum PictureType {
 	FOOTBALL
 }
 
-type Pictures {
-  height Int
-  width Int
-  url String // base64 ?
-	type PictureType
-}
-
 model User {
 	id String @id @default(auto()) @map("_id") @db.ObjectId
 	email String @unique
@@ -36,13 +29,19 @@ model User {
 model ProfilePicture {
 	profilePictureId String @id @default(auto()) @map("_id") @db.ObjectId
 	user User @relation(fields: [profilePictureId], references: [id])
+	picture Picture @relation(fields: [profilePictureId], references: [pictureId])
 }
 
 model FootballPicture {
-	footballPictureID String @id @default(auto()) @map("_id") @db.ObjectId
+	footballPictureId String @id @default(auto()) @map("_id") @db.ObjectId
+	picture Picture @relation(fields: [footballPictureId], references: [pictureId])
 }
 
 model Picture {
 	pictureId String @id @default(auto()) @map("_id") @db.ObjectId
-	pictures Pictures[]
+  height Int
+  width Int
+  url String // base64 ?
+	profilePicture ProfilePicture?
+	footballPicture FootballPicture?
 }
