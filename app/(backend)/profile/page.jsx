@@ -15,6 +15,8 @@ const Profile = () => {
       <div>Name: {currentUser?.name || "no name yet..."}</div>
 
       <div>Email: {currentUser?.email}</div>
+
+      {currentUser?.role === "ADMIN" && <div>Role: {currentUser?.role}</div>}
     </div>
   );
 };
