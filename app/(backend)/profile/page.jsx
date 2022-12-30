@@ -30,17 +30,19 @@ const Profile = () => {
 
   // Find how to deal with email too... find a generic way to do it !
   useEffect(() => {
-    const nameEditButton = document.getElementById(`editButton-name`);
+    const nameEditButton = document.getElementById("editButton-name");
 
     if (!user.name || initialUser.name === user?.name.trim()) {
       nameEditButton.style.color = "#0060a0";
       nameEditButton.style.cursor = "auto";
+      nameEditButton.disabled = Boolean(true);
     }
 
     if (user?.name && nameEditButton)
       if (initialUser.name !== user?.name.trim()) {
         nameEditButton.style.color = "white";
         nameEditButton.style.cursor = "pointer";
+        nameEditButton.disabled = Boolean(false);
       }
   }, [user]);
 
@@ -76,7 +78,11 @@ const Profile = () => {
               className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
               style={{ backgroundColor: "#0060a0" }}
             />
-            <Button buttonId="editButton-name" type="edit" />
+            <Button
+              buttonId="editButton-name"
+              type="edit"
+              disabled={Boolean(true)}
+            />
           </div>
         </label>
         <label className="block pb-10">
