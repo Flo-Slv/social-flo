@@ -73,17 +73,17 @@ const NavContent = ({ isAdmin }) => {
           <a>
             <i
               className="fa-solid fa-right-from-bracket"
-              style={{ "--i": 5 }}
+              style={{ "--i": 4 }}
             ></i>
-            <span style={{ "--g": 5 }}>Logout</span>
+            <span style={{ "--g": 4 }}>Logout</span>
           </a>
         </li>
 
         {isAdmin && (
           <li>
             <Link href="/admin">
-              <i className="fa fa-list" style={{ "--i": 4 }}></i>
-              <span style={{ "--g": 4 }}>Admin</span>
+              <i className="fa fa-list" style={{ "--i": 5 }}></i>
+              <span style={{ "--g": 5 }}>Admin</span>
             </Link>
           </li>
         )}
