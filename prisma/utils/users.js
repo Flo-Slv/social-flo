@@ -4,7 +4,14 @@ import prisma from "./prisma-client.js";
 
 export const getUsers = async () => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: {
+        id: Boolean(true),
+        name: Boolean(true),
+        email: Boolean(true),
+        role: Boolean(true),
+      },
+    });
     return { users };
   } catch (error) {
     return { error };
@@ -13,7 +20,15 @@ export const getUsers = async () => {
 
 export const getUserById = async (id) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id } });
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: Boolean(true),
+        name: Boolean(true),
+        email: Boolean(true),
+        role: Boolean(true),
+      },
+    });
     return { user };
   } catch (error) {
     return { error };
