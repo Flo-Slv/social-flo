@@ -1,4 +1,4 @@
-import AdminLoader from "../../../components/loader/Adminloader.jsx";
+import AdminLoader from "../../../components/loader/AdminLoader.jsx";
 
 const ProfileLoading = () => {
   return <AdminLoader page={"Profile"} />;
