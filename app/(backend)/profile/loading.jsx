@@ -1,7 +1,7 @@
 import AdminLoader from "../../../components/loader/AdminLoader.jsx";
 
-const ProfileLoading = () => {
+const ProfileLoader = () => {
   return <AdminLoader page={"Profile"} />;
 };
 
-export default ProfileLoading;
+export default ProfileLoader;

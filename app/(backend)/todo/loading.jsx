@@ -1,7 +1,7 @@
 import AdminLoader from "../../../components/loader/AdminLoader.jsx";
 
-const TodoLoading = () => {
+const TodoLoader = () => {
   return <AdminLoader page={"Todo"} />;
 };
 
-export default TodoLoading;
+export default TodoLoader;

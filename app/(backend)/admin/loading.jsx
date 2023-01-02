@@ -1,7 +1,7 @@
 import AdminLoader from "../../../components/loader/AdminLoader.jsx";
 
-const AdminLoading = () => {
+const AdminPanelLoader = () => {
   return <AdminLoader page={"Admin"} />;
 };
 
-export default AdminLoading;
+export default AdminPanelLoader;

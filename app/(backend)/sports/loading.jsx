@@ -1,7 +1,7 @@
 import AdminLoader from "../../../components/loader/AdminLoader.jsx";
 
-const SportsLoading = () => {
+const SportsLoader = () => {
   return <AdminLoader page={"Sports"} />;
 };
 
-export default SportsLoading;
+export default SportsLoader;
