@@ -31,6 +31,7 @@ const Profile = () => {
   // Find how to deal with email too... find a generic way to do it !
   useEffect(() => {
     const nameEditButton = document.getElementById("editButton-name");
+    const emailEditButton = document.getElementById("editButton-email");
 
     if (!user.name || initialUser.name === user?.name.trim()) {
       nameEditButton.style.color = "#0060a0";
@@ -54,6 +55,11 @@ const Profile = () => {
       ...user,
       [id]: value ? value : null,
     });
+  };
+
+  const handleEdit = (user) => {
+    setInitialUser(user);
+    setUser(user);
   };
 
   return (
@@ -82,6 +88,8 @@ const Profile = () => {
               buttonId="editButton-name"
               type="edit"
               disabled={Boolean(true)}
+              data={{ id: user.id, field: "name", data: user.name }}
+              updateState={handleEdit}
             />
           </div>
         </label>

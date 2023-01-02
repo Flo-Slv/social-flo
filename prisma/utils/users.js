@@ -113,3 +113,22 @@ export const removeUserById = async (id) => {
     return { error };
   }
 };
+
+export const updateUserById = async (id, updatedField) => {
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: updatedField,
+      select: {
+        id: Boolean(true),
+        name: Boolean(true),
+        email: Boolean(true),
+        role: Boolean(true),
+      },
+    });
+
+    return { user };
+  } catch (error) {
+    return { error };
+  }
+};
