@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+import validator from "validator";
 import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
@@ -9,6 +10,24 @@ import AdminInput from "../../../components/form/AdminInput.jsx";
 import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
+
+const updateUserById = (updatedData, setInitialUser, setUser, setError) => {
+  fetch("/api/users/update-user-by-id", {
+    body: JSON.stringify(updatedData),
+    headers: { "Content-Type": "application/json" },
+    method: "PATCH",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        setError(res.error);
+        return null;
+      }
+
+      setInitialUser(res.user);
+      setUser(res.user);
+    });
+};
 
 const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -29,27 +48,66 @@ const Profile = () => {
   useEffect(() => {
     if (data) {
       setInitialUser(data.user);
+
+      data.user.modifiedField = "";
       setUser(data.user);
     }
   }, [data]);
 
-  // Find how to deal with email too... find a generic way to do it !
+  // Find how to deal with each field... find a generic way to do it !
   useEffect(() => {
     const nameEditButton = document.getElementById("editButton-name");
     const emailEditButton = document.getElementById("editButton-email");
 
-    if (!user.name || initialUser.name === user?.name.trim()) {
-      nameEditButton.style.color = "#0060a0";
+    if (!user.modifiedField) {
       nameEditButton.style.cursor = "auto";
-      nameEditButton.disabled = Boolean(true);
+      nameEditButton.setAttribute("disabled", "");
+      nameEditButton.classList.remove("text-white");
+      nameEditButton.classList.add("text-gray-400");
+      nameEditButton.classList.remove("border-white");
+      nameEditButton.classList.add("border-gray-400");
+
+      emailEditButton.style.cursor = "auto";
+      emailEditButton.disabled = Boolean(true);
     }
 
-    if (user?.name && nameEditButton)
-      if (initialUser.name !== user?.name.trim()) {
-        nameEditButton.style.color = "white";
-        nameEditButton.style.cursor = "pointer";
-        nameEditButton.disabled = Boolean(false);
+    if (user.modifiedField === "name") {
+      // Do not display edit button for name.
+      if (!user.name || initialUser.name === user?.name.trim()) {
+        nameEditButton.style.cursor = "auto";
+        nameEditButton.setAttribute("disabled", "");
+        nameEditButton.classList.remove("text-white");
+        nameEditButton.classList.add("text-gray-400");
+        nameEditButton.classList.remove("border-white");
+        nameEditButton.classList.add("border-gray-400");
       }
+
+      // Display edit button for name.
+      if (user?.name && nameEditButton)
+        if (initialUser.name !== user?.name.trim()) {
+          nameEditButton.style.cursor = "pointer";
+          nameEditButton.removeAttribute("disabled");
+          nameEditButton.classList.remove("text-gray-400");
+          nameEditButton.classList.add("text-white");
+          nameEditButton.classList.remove("border-gray-400");
+          nameEditButton.classList.add("border-white");
+        }
+    }
+
+    if (user.modifiedField === "email") {
+      // Do not display edit button for email.
+      if (!user.email || initialUser.email === user?.email.trim()) {
+        emailEditButton.style.cursor = "auto";
+        emailEditButton.disabled = Boolean(true);
+      }
+
+      // Display edit button for email.
+      if (user?.email && emailEditButton)
+        if (initialUser.email !== user?.email.trim()) {
+          emailEditButton.style.cursor = "pointer";
+          emailEditButton.disabled = Boolean(false);
+        }
+    }
   }, [user]);
 
   const handleChange = (e) => {
@@ -59,12 +117,21 @@ const Profile = () => {
     setUser({
       ...user,
       [id]: value ? value : null,
+      modifiedField: id,
     });
   };
 
-  const handleEdit = (user) => {
-    setInitialUser(user);
-    setUser(user);
+  const handleClick = (e, data) => {
+    e.preventDefault;
+
+    // Use validator to avoid xss attacks.
+    const updatedData = {
+      id: validator.escape(data.id),
+      field: validator.escape(data.field),
+      data: validator.escape(data.value),
+    };
+
+    updateUserById(updatedData, setInitialUser, setUser, setError);
   };
 
   return (
@@ -86,31 +153,33 @@ const Profile = () => {
               value={user?.name || ""}
               handleOnChange={handleChange}
             />
+
             <AdminEditButton
               buttonId="editButton-name"
-              disabled={Boolean(true)}
-              data={{ id: user.id, field: "name", data: user.name }}
-              updateState={handleEdit}
-              setError={setError}
+              data={{ id: user.id, field: "name", value: user.name }}
+              click={handleClick}
             />
           </div>
         </label>
         <label className="block pb-10">
           <span className="text-gray-400">Email</span>
-          <AdminInput
-            id="email"
-            type="email"
-            placeholder={user?.email ? "Modify your email" : "Enter your email"}
-            value={user?.email || ""}
-            handleOnChange={handleChange}
-          />
-          <AdminEditButton
-            buttonId="editButton-email"
-            disabled={Boolean(true)}
-            data={{ id: user.id, field: "email", data: user.email }}
-            updateState={handleEdit}
-            setError={setError}
-          />
+          <div className="flex">
+            <AdminInput
+              id="email"
+              type="email"
+              placeholder={
+                user?.email ? "Modify your email" : "Enter your email"
+              }
+              value={user?.email || ""}
+              handleOnChange={handleChange}
+            />
+
+            <AdminEditButton
+              buttonId="editButton-email"
+              data={{ id: user.id, field: "email", value: user.email }}
+              click={handleClick}
+            />
+          </div>
         </label>
         {currentUser?.role === "ADMIN" && (
           <label className="block">
