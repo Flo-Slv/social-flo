@@ -82,7 +82,6 @@ const Profile = () => {
           <div className="flex">
             <AdminInput
               id="name"
-              type="text"
               placeholder={user?.name ? "Modify your name" : "Enter your name"}
               value={user?.name || ""}
               handleOnChange={handleChange}
@@ -116,13 +115,10 @@ const Profile = () => {
         {currentUser?.role === "ADMIN" && (
           <label className="block">
             <span className="text-gray-400">Role</span>
-            <input
+            <AdminInput
               id="role"
-              type="text"
               value={user?.role || ""}
-              className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
-              style={{ backgroundColor: "#0060a0" }}
-              readOnly
+              readOnly={Boolean(true)}
             />
           </label>
         )}

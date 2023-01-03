@@ -1,4 +1,11 @@
-const AdminInput = ({ id, type, placeholder, value, handleOnChange }) => {
+const AdminInput = ({
+  id,
+  type = "text",
+  placeholder = "",
+  value,
+  handleOnChange = () => {},
+  readOnly = Boolean(false),
+}) => {
   return (
     <input
       id={id}
@@ -8,6 +15,7 @@ const AdminInput = ({ id, type, placeholder, value, handleOnChange }) => {
       onChange={(e) => handleOnChange(e)}
       className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
       style={{ backgroundColor: "#0060a0" }}
+      readOnly={readOnly}
     />
   );
 };
