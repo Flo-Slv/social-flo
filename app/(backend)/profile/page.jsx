@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
 
-import Button from "../../../components/form/button.jsx";
+import Button from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
 
