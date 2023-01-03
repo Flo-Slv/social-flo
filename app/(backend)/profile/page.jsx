@@ -5,7 +5,8 @@ import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
 
-import EditButton from "../../../components/form/AdminEditButton.jsx";
+import AdminInput from "../../../components/form/AdminInput.jsx";
+import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
 
@@ -20,7 +21,10 @@ const Profile = () => {
     (...args) => fetch(...args).then((res) => res.json())
   );
 
-  if (err) console.error(err);
+  if (err) {
+    console.error("profile - data fetching error: ", err);
+    setError(err);
+  }
 
   useEffect(() => {
     if (data) {
@@ -76,16 +80,14 @@ const Profile = () => {
         <label className="block pb-10">
           <span className="text-gray-400">Name</span>
           <div className="flex">
-            <input
+            <AdminInput
               id="name"
               type="text"
               placeholder={user?.name ? "Modify your name" : "Enter your name"}
               value={user?.name || ""}
-              onChange={(e) => handleChange(e)}
-              className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
-              style={{ backgroundColor: "#0060a0" }}
+              handleOnChange={handleChange}
             />
-            <EditButton
+            <AdminEditButton
               buttonId="editButton-name"
               disabled={Boolean(true)}
               data={{ id: user.id, field: "name", data: user.name }}
@@ -96,16 +98,20 @@ const Profile = () => {
         </label>
         <label className="block pb-10">
           <span className="text-gray-400">Email</span>
-          <input
+          <AdminInput
             id="email"
             type="email"
-            placeholder="Modify your email"
+            placeholder={user?.email ? "Modify your email" : "Enter your email"}
             value={user?.email || ""}
-            onChange={(e) => handleChange(e)}
-            className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
-            style={{ backgroundColor: "#0060a0" }}
+            handleOnChange={handleChange}
           />
-          <EditButton buttonId="editButton-email" type="edit" />
+          <AdminEditButton
+            buttonId="editButton-email"
+            disabled={Boolean(true)}
+            data={{ id: user.id, field: "email", data: user.email }}
+            updateState={handleEdit}
+            setError={setError}
+          />
         </label>
         {currentUser?.role === "ADMIN" && (
           <label className="block">
