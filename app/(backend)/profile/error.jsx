@@ -1,7 +1,7 @@
 "use client";
 
 const Error = ({ error, reset }) => {
-  console.log("client error sign-in: ", error);
+  console.log("client error profile: ", error);
 
   return (
     <div>

@@ -2,7 +2,7 @@
 
 import validator from "validator";
 
-const updateUserById = (updatedData, updateState) => {
+const updateUserById = (updatedData, updateState, setError) => {
   fetch("/api/users/update-user-by-id", {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json" },
@@ -10,26 +10,27 @@ const updateUserById = (updatedData, updateState) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) console.log("res error: ", error);
+      if (res.error) {
+        setError(res.error);
+        return null;
+      }
 
       updateState(res.user);
     });
 };
 
-const Button = ({ buttonId, type = "edit", data, updateState }) => {
+const Button = ({ buttonId, data, updateState, setError }) => {
   const handleClick = (e) => {
     e.preventDefault;
 
-    if (type === "edit") {
-      // Use validator to avoid xss attacks.
-      const updatedData = {
-        id: validator.escape(data.id),
-        field: validator.escape(data.field),
-        data: validator.escape(data.data),
-      };
+    // Use validator to avoid xss attacks.
+    const updatedData = {
+      id: validator.escape(data.id),
+      field: validator.escape(data.field),
+      data: validator.escape(data.data),
+    };
 
-      updateUserById(updatedData, updateState);
-    }
+    updateUserById(updatedData, updateState, setError);
   };
 
   return (

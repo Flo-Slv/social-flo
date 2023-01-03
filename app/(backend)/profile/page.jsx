@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
 
-import Button from "../../../components/form/AdminEditButton.jsx";
+import EditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
 
@@ -13,13 +13,14 @@ const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const [initialUser, setInitialUser] = useState({});
   const [user, setUser] = useState({});
+  const [error, setError] = useState("");
 
-  const { data, error } = useSWR(
+  const { data, err } = useSWR(
     `/api/users/get-user-by-id?id=${currentUser.id}`,
     (...args) => fetch(...args).then((res) => res.json())
   );
 
-  if (error) console.error(error);
+  if (err) console.error(err);
 
   useEffect(() => {
     if (data) {
@@ -84,12 +85,12 @@ const Profile = () => {
               className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
               style={{ backgroundColor: "#0060a0" }}
             />
-            <Button
+            <EditButton
               buttonId="editButton-name"
-              type="edit"
               disabled={Boolean(true)}
               data={{ id: user.id, field: "name", data: user.name }}
               updateState={handleEdit}
+              setError={setError}
             />
           </div>
         </label>
@@ -104,7 +105,7 @@ const Profile = () => {
             className="block form-input px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-black border-0 border-b-2 border-gray-400"
             style={{ backgroundColor: "#0060a0" }}
           />
-          <Button buttonId="editButton-email" type="edit" />
+          <EditButton buttonId="editButton-email" type="edit" />
         </label>
         {currentUser?.role === "ADMIN" && (
           <label className="block">
@@ -120,6 +121,8 @@ const Profile = () => {
           </label>
         )}
       </form>
+
+      {error && <div>{error}</div>}
     </div>
   );
 };
