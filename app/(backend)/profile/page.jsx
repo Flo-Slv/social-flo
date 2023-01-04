@@ -62,17 +62,16 @@ const Profile = () => {
     if (!user.modifiedField) {
       nameEditButton.style.cursor = "auto";
       nameEditButton.setAttribute("disabled", "");
-      nameEditButton.classList.remove("text-white");
-      nameEditButton.classList.add("text-gray-400");
       nameEditButton.classList.remove("border-white");
-      nameEditButton.classList.add("border-gray-400");
+      nameEditButton.classList.add("bg-red-400", "opacity-75");
+      nameEditButton.classList.remove("bg-green-700");
+      nameEditButton.classList.remove("hover:bg-green-600");
 
       emailEditButton.style.cursor = "auto";
       emailEditButton.setAttribute("disabled", "");
-      emailEditButton.classList.remove("text-white");
-      emailEditButton.classList.add("text-gray-400");
       emailEditButton.classList.remove("border-white");
-      emailEditButton.classList.add("border-gray-400");
+      emailEditButton.classList.add("bg-red-400", "opacity-75");
+      emailEditButton.classList.remove("hover:bg-green-600");
     }
 
     if (user.modifiedField === "name") {
@@ -80,10 +79,10 @@ const Profile = () => {
       if (!user.name || initialUser.name === user?.name.trim()) {
         nameEditButton.style.cursor = "auto";
         nameEditButton.setAttribute("disabled", "");
-        nameEditButton.classList.remove("text-white");
-        nameEditButton.classList.add("text-gray-400");
         nameEditButton.classList.remove("border-white");
-        nameEditButton.classList.add("border-gray-400");
+        nameEditButton.classList.add("bg-red-400", "opacity-75");
+        nameEditButton.classList.remove("bg-green-700");
+        nameEditButton.classList.remove("hover:bg-green-600");
       }
 
       // Display edit button for name.
@@ -91,10 +90,10 @@ const Profile = () => {
         if (initialUser.name !== user?.name.trim()) {
           nameEditButton.style.cursor = "pointer";
           nameEditButton.removeAttribute("disabled");
-          nameEditButton.classList.remove("text-gray-400");
-          nameEditButton.classList.add("text-white");
-          nameEditButton.classList.remove("border-gray-400");
+          nameEditButton.classList.remove("bg-red-400", "opacity-75");
+          nameEditButton.classList.add("bg-green-700");
           nameEditButton.classList.add("border-white");
+          nameEditButton.classList.add("hover:bg-green-600");
         }
     }
 
@@ -103,10 +102,10 @@ const Profile = () => {
       if (!user.email || initialUser.email === user?.email.trim()) {
         emailEditButton.style.cursor = "auto";
         emailEditButton.setAttribute("disabled", "");
-        emailEditButton.classList.remove("text-white");
-        emailEditButton.classList.add("text-gray-400");
         emailEditButton.classList.remove("border-white");
-        emailEditButton.classList.add("border-gray-400");
+        emailEditButton.classList.add("bg-red-400", "opacity-75");
+        emailEditButton.classList.remove("bg-green-700");
+        emailEditButton.classList.remove("hover:bg-green-600");
       }
 
       // Display edit button for email.
@@ -114,10 +113,10 @@ const Profile = () => {
         if (initialUser.email !== user?.email.trim()) {
           emailEditButton.style.cursor = "pointer";
           emailEditButton.removeAttribute("disabled");
-          emailEditButton.classList.remove("text-gray-400");
-          emailEditButton.classList.add("text-white");
-          emailEditButton.classList.remove("border-gray-400");
+          emailEditButton.classList.remove("bg-red-400", "opacity-75");
+          emailEditButton.classList.add("bg-green-700");
           emailEditButton.classList.add("border-white");
+          emailEditButton.classList.add("hover:bg-green-600");
         }
     }
   }, [user]);
