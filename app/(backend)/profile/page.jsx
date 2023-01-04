@@ -134,7 +134,9 @@ const Profile = () => {
           <div className="flex">
             <AdminInput
               id="name"
-              placeholder={user?.name ? "Modify your name" : "Enter your name"}
+              placeholder={
+                initialUser?.name ? "Modify your name" : "Enter your name"
+              }
               value={user?.name || ""}
               handleOnChange={handleChange}
             />
