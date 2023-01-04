@@ -34,6 +34,8 @@ const Profile = () => {
   const [initialUser, setInitialUser] = useState({});
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
+  const [nameModified, setNameModified] = useState(Boolean(false));
+  const [emailModified, setEmailModified] = useState(Boolean(false));
 
   const { data, err } = useSWR(
     `/api/users/get-user-by-id?id=${currentUser.id}`,
@@ -54,70 +56,44 @@ const Profile = () => {
     }
   }, [data]);
 
-  // Find how to deal with each field... find a generic way to do it !
   useEffect(() => {
     const nameEditButton = document.getElementById("editButton-name");
     const emailEditButton = document.getElementById("editButton-email");
 
     if (!user.modifiedField) {
-      nameEditButton.style.cursor = "auto";
       nameEditButton.setAttribute("disabled", "");
-      nameEditButton.classList.remove("border-white");
-      nameEditButton.classList.add("bg-red-400", "opacity-75");
-      nameEditButton.classList.remove("bg-green-700");
-      nameEditButton.classList.remove("hover:bg-green-600");
-
-      emailEditButton.style.cursor = "auto";
       emailEditButton.setAttribute("disabled", "");
-      emailEditButton.classList.remove("border-white");
-      emailEditButton.classList.add("bg-red-400", "opacity-75");
-      emailEditButton.classList.remove("hover:bg-green-600");
+
+      setNameModified(Boolean(false));
+      setEmailModified(Boolean(false));
     }
 
     if (user.modifiedField === "name") {
-      // Do not display edit button for name.
       if (!user.name || initialUser.name === user?.name.trim()) {
-        nameEditButton.style.cursor = "auto";
         nameEditButton.setAttribute("disabled", "");
-        nameEditButton.classList.remove("border-white");
-        nameEditButton.classList.add("bg-red-400", "opacity-75");
-        nameEditButton.classList.remove("bg-green-700");
-        nameEditButton.classList.remove("hover:bg-green-600");
+        setNameModified(Boolean(false));
       }
 
-      // Display edit button for name.
-      if (user?.name && nameEditButton)
+      if (user?.name && nameEditButton) {
         if (initialUser.name !== user?.name.trim()) {
-          nameEditButton.style.cursor = "pointer";
           nameEditButton.removeAttribute("disabled");
-          nameEditButton.classList.remove("bg-red-400", "opacity-75");
-          nameEditButton.classList.add("bg-green-700");
-          nameEditButton.classList.add("border-white");
-          nameEditButton.classList.add("hover:bg-green-600");
+          setNameModified(Boolean(true));
         }
+      }
     }
 
     if (user.modifiedField === "email") {
-      // Do not display edit button for email.
       if (!user.email || initialUser.email === user?.email.trim()) {
-        emailEditButton.style.cursor = "auto";
         emailEditButton.setAttribute("disabled", "");
-        emailEditButton.classList.remove("border-white");
-        emailEditButton.classList.add("bg-red-400", "opacity-75");
-        emailEditButton.classList.remove("bg-green-700");
-        emailEditButton.classList.remove("hover:bg-green-600");
+        setEmailModified(Boolean(false));
       }
 
-      // Display edit button for email.
-      if (user?.email && emailEditButton)
+      if (user?.email && emailEditButton) {
         if (initialUser.email !== user?.email.trim()) {
-          emailEditButton.style.cursor = "pointer";
           emailEditButton.removeAttribute("disabled");
-          emailEditButton.classList.remove("bg-red-400", "opacity-75");
-          emailEditButton.classList.add("bg-green-700");
-          emailEditButton.classList.add("border-white");
-          emailEditButton.classList.add("hover:bg-green-600");
+          setEmailModified(Boolean(true));
         }
+      }
     }
   }, [user]);
 
@@ -150,9 +126,7 @@ const Profile = () => {
       className={`${styles.profile} flex flex-col items-center justify-center h-screen overflow-hidden`}
     >
       <form
-        className={
-          "flex flex-col border border-white rounded-xl px-20 py-20 text-white"
-        }
+        className={"flex flex-col border border-white rounded-xl px-20 py-20"}
         style={{ backgroundColor: "#0060a0" }}
       >
         <label className="block pb-10">
@@ -169,6 +143,7 @@ const Profile = () => {
               buttonId="editButton-name"
               data={{ id: user.id, field: "name", value: user.name }}
               click={handleClick}
+              isModified={nameModified}
             />
           </div>
         </label>
@@ -189,6 +164,7 @@ const Profile = () => {
               buttonId="editButton-email"
               data={{ id: user.id, field: "email", value: user.email }}
               click={handleClick}
+              isModified={emailModified}
             />
           </div>
         </label>
