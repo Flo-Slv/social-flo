@@ -1,10 +1,11 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import useSWR from "swr";
 import validator from "validator";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
+
+import useGetUserById from "../../../utils/swr/getUserById.js";
 
 import AdminInput from "../../../components/form/AdminInput.jsx";
 import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
@@ -33,10 +34,7 @@ const Profile = () => {
   const [nameModified, setNameModified] = useState(Boolean(false));
   const [emailModified, setEmailModified] = useState(Boolean(false));
 
-  const { data, error } = useSWR(
-    `/api/users/get-user-by-id?id=${currentUser.id}`,
-    (...args) => fetch(...args).then((res) => res.json())
-  );
+  const { data, error } = useGetUserById(currentUser.id);
 
   if (error) throw new Error(error);
 
