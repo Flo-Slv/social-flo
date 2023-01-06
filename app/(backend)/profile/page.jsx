@@ -11,7 +11,7 @@ import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
 
-const updateUserById = (updatedData, setInitialUser, setUser, setError) => {
+const updateUserById = (updatedData, setInitialUser, setUser) => {
   fetch("/api/users/update-user-by-id", {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json" },
@@ -19,10 +19,7 @@ const updateUserById = (updatedData, setInitialUser, setUser, setError) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) {
-        setError(res.error);
-        return null;
-      }
+      if (res.error) throw new Error(res.error);
 
       setInitialUser(res.user);
       setUser(res.user);
@@ -33,19 +30,15 @@ const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const [initialUser, setInitialUser] = useState({});
   const [user, setUser] = useState({});
-  const [error, setError] = useState("");
   const [nameModified, setNameModified] = useState(Boolean(false));
   const [emailModified, setEmailModified] = useState(Boolean(false));
 
-  const { data, err } = useSWR(
+  const { data, error } = useSWR(
     `/api/users/get-user-by-id?id=${currentUser.id}`,
     (...args) => fetch(...args).then((res) => res.json())
   );
 
-  if (err) {
-    console.error("profile - data fetching error: ", err);
-    setError(err);
-  }
+  if (error) throw new Error(error);
 
   useEffect(() => {
     if (data) {
@@ -118,7 +111,7 @@ const Profile = () => {
       data: validator.escape(data.value),
     };
 
-    updateUserById(updatedData, setInitialUser, setUser, setError);
+    updateUserById(updatedData, setInitialUser, setUser);
   };
 
   return (
@@ -181,8 +174,6 @@ const Profile = () => {
           </label>
         )}
       </form>
-
-      {error && <div>{error}</div>}
     </div>
   );
 };
