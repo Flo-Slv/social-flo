@@ -1,11 +1,7 @@
-'use client';
+"use client";
 
 const Judo = () => {
-	return (
-		<div className={'test'}>
-			Judo page !
-		</div>
-	);
+  return <div className={"test"}>Judo page !</div>;
 };
 
 export default Judo;

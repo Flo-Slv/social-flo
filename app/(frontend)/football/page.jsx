@@ -1,11 +1,7 @@
-'use client';
+"use client";
 
 const Football = () => {
-	return (
-		<div className={'test'}>
-			Football page !
-		</div>
-	);
+  return <div className={"test"}>Football page !</div>;
 };
 
 export default Football;
