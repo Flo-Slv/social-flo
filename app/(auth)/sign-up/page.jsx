@@ -1,8 +1,8 @@
 "use client";
 
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useContext, useState } from "react";
 import validator from "validator";
 
 import Image from "next/image";
@@ -17,8 +17,6 @@ import darkTheme from "../../../public/dark-theme.png";
 const SignUp = () => {
   const { dark, toggle } = useContext(ThemeContext);
 
-  const [error, setError] = useState("");
-
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -26,7 +24,7 @@ const SignUp = () => {
 
     const formData = new FormData(e.target);
 
-    const data = {
+    const safeData = {
       email: validator.escape(formData.get("email")),
       password: validator.escape(formData.get("password")),
       confirm_password: validator.escape(formData.get("confirm_password")),
@@ -34,16 +32,13 @@ const SignUp = () => {
 
     // Try to create an account.
     fetch("/api/users/sign-up", {
-      body: JSON.stringify(data),
+      body: JSON.stringify(safeData),
       headers: { "Content-Type": "application/json" },
       method: "POST",
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.error) {
-          setError(res.error);
-          return null;
-        }
+        if (res.error) throw new Error(res.error);
 
         // Redirect to login if ok.
         // See if we can pass a message to this new page
@@ -77,8 +72,6 @@ const SignUp = () => {
 
         <button type="submit">Create an account</button>
       </form>
-
-      {error && <div>{error}</div>}
 
       <div className={"login-buttons"}>
         <button>
