@@ -1,8 +1,8 @@
 "use client";
 
+import { useContext, useEffect, useState } from "react";
 import useSWR from "swr";
 import validator from "validator";
-import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
 
