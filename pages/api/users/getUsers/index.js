@@ -1,6 +1,6 @@
 import { getUsers } from "../../../../prisma/utils/users.js";
 
-import isUserLogged from "../../../../utils/jose/is-user-logged.js";
+import isUserLogged from "../../../../utils/jose/isUserLogged.js";
 
 const handler = async (req, res) => {
   if (!isUserLogged(req, res)) {

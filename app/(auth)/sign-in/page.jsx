@@ -7,12 +7,12 @@ import validator from "validator";
 
 import Image from "next/image";
 
-import { ThemeContext } from "../../../context/theme/theme-provider.jsx";
+import { ThemeContext } from "../../../context/theme/themeProvider.jsx";
 
-import "../../../styles/frontend/sign-in.scss";
+import "../../../styles/frontend/signIn.scss";
 
-import lightTheme from "../../../public/light-theme.png";
-import darkTheme from "../../../public/dark-theme.png";
+import lightTheme from "../../../public/lightTheme.png";
+import darkTheme from "../../../public/darkTheme.png";
 
 const login = (data, refresh) => {
   // Try to login.

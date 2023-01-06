@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
+import { CurrentUserContext } from "../../../context/currentUser/currentUserProvider.jsx";
 
 const Sports = () => {
   const { currentUser } = useContext(CurrentUserContext);

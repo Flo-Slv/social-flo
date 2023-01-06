@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import verifyJwt from "./utils/jose/verify-jwt.js";
+import verifyJwt from "./utils/jose/verifyJwt.js";
 
 const publicRoutes = [
   "/",

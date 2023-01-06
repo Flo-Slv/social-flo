@@ -1,20 +1,23 @@
-import { removeUserById } from "../../../../prisma/utils/users.js";
+import { updateUserById } from "../../../../prisma/utils/users.js";
 
-import isUserLogged from "../../../../utils/jose/is-user-logged.js";
+import isUserLogged from "../../../../utils/jose/isUserLogged.js";
 
 const handler = async (req, res) => {
   if (!isUserLogged(req, res)) {
     return res.status(500).json({ error: "Invalid token !" });
   }
 
-  if (req.method === "DELETE") {
+  if (req.method === "PATCH") {
     try {
-      const { user, error } = await removeUserById(req.query.id);
+      const id = req.body.id;
+      const updatedField = { [req.body.field]: req.body.data };
+
+      const { user, error } = await updateUserById(id, updatedField);
 
       if (error) throw new Error(error);
 
       return res.status(200).json({
-        message: "User successfully deleted !",
+        message: "User successfully updated !",
         user,
       });
     } catch (error) {
@@ -22,7 +25,7 @@ const handler = async (req, res) => {
     }
   }
 
-  res.setHeader("Allow", ["DELETE"]);
+  res.setHeader("Allow", ["PATCH"]);
   res.status(405).end(`Method ${req.method} is not allowed.`);
 };
 

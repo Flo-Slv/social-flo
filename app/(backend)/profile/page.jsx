@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import validator from "validator";
 
-import { CurrentUserContext } from "../../../context/current-user/current-user-provider.jsx";
+import { CurrentUserContext } from "../../../context/currentUser/currentUserProvider.jsx";
 
 import useGetUserById from "../../../utils/swr/getUserById.js";
 
@@ -13,7 +13,7 @@ import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 import styles from "../../../styles/backend/profile.module.scss";
 
 const updateUserById = async (updatedData, setInitialUser, setUser) => {
-  const res = await fetch("/api/users/update-user-by-id", {
+  const res = await fetch("/api/users/updateUserById", {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json" },
     method: "PATCH",
