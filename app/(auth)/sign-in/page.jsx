@@ -1,8 +1,8 @@
 "use client";
 
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useContext, useState } from "react";
 import validator from "validator";
 
 import Image from "next/image";
@@ -14,7 +14,7 @@ import "../../../styles/frontend/sign-in.scss";
 import lightTheme from "../../../public/light-theme.png";
 import darkTheme from "../../../public/dark-theme.png";
 
-const login = (data, refresh, setError) => {
+const login = (data, refresh) => {
   // Try to login.
   fetch("/api/users/sign-in", {
     body: JSON.stringify(data),
@@ -23,10 +23,7 @@ const login = (data, refresh, setError) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) {
-        setError(res.error);
-        return null;
-      }
+      if (res.error) throw new Error(res.error);
 
       // Redirect to profile if ok.
       // refresh() to force Root Layout to get jwt cookie.
@@ -37,7 +34,6 @@ const login = (data, refresh, setError) => {
 const SignIn = () => {
   const router = useRouter();
   const { dark, toggle } = useContext(ThemeContext);
-  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,12 +41,12 @@ const SignIn = () => {
     const formData = new FormData(e.target);
 
     // Use validator to avoid xss attacks.
-    const data = {
+    const safeData = {
       email: validator.escape(formData.get("email")),
       password: validator.escape(formData.get("password")),
     };
 
-    login(data, router.refresh, setError);
+    login(safeData, router.refresh);
   };
 
   return (
@@ -70,8 +66,6 @@ const SignIn = () => {
 
         <button type="submit">Log in</button>
       </form>
-
-      {error && <div>{error}</div>}
 
       <div className={"login-buttons"}>
         <button>
