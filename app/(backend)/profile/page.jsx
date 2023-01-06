@@ -12,19 +12,19 @@ import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
 
-const updateUserById = (updatedData, setInitialUser, setUser) => {
-  fetch("/api/users/update-user-by-id", {
+const updateUserById = async (updatedData, setInitialUser, setUser) => {
+  const res = await fetch("/api/users/update-user-by-id", {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json" },
     method: "PATCH",
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.error) throw new Error(res.error);
+  });
 
-      setInitialUser(res.user);
-      setUser(res.user);
-    });
+  if (!res.ok) throw new Error("Failed to update user !");
+
+  const data = await res.json();
+
+  setInitialUser(data.user);
+  setUser(data.user);
 };
 
 const Profile = () => {
@@ -99,7 +99,7 @@ const Profile = () => {
     });
   };
 
-  const handleClick = (e, data) => {
+  const handleClick = async (e, data) => {
     e.preventDefault;
 
     // Use validator to avoid xss attacks.
@@ -109,7 +109,7 @@ const Profile = () => {
       data: validator.escape(data.value),
     };
 
-    updateUserById(updatedData, setInitialUser, setUser);
+    await updateUserById(updatedData, setInitialUser, setUser);
   };
 
   return (
