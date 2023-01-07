@@ -1,19 +1,103 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { useCallback, useEffect, useState } from "react";
+import validator from "validator";
+import { DataGrid, useGridApiContext } from "@mui/x-data-grid";
+import Select from "@mui/material/Select";
+import Input from "@mui/material/Input";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 import useGetUsers from "../../../utils/swr/getUsers.js";
+import useUpdateUserById from "../../../utils/fetch/updateUserById.js";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 240 },
-  { field: "name", headerName: "Name", width: 130 },
-  { field: "email", headerName: "Email", width: 130 },
-  { field: "role", headerName: "Role", width: 90 },
-];
+const SelectEditInputCell = (props) => {
+  const { id, value, field } = props;
+  const apiRef = useGridApiContext();
+
+  const handleChange = async (event) => {
+    const isValid = await apiRef.current.setEditCellValue({
+      id,
+      field,
+      value: event.target.value,
+    });
+
+    if (isValid) {
+      // Use validator to avoid xss attacks.
+      const safeData = {
+        id: validator.escape(id),
+        field: validator.escape(field),
+        data: validator.escape(event.target.value),
+      };
+
+      const res = await useUpdateUserById(safeData);
+
+      if (res.error) throw new Error(res.error.message);
+
+      // Close editing cell.
+      apiRef.current.stopCellEditMode({ id, field });
+    }
+  };
+
+  return (
+    <Select
+      value={value}
+      onChange={handleChange}
+      size="small"
+      sx={{ height: 1 }}
+      native
+      autoFocus
+    >
+      <option>ADMIN</option>
+      <option>USER</option>
+    </Select>
+  );
+};
+
+const EditInputCell = ({ params, setSnackbar }) => {
+  console.log("params: ", params);
+  const { id, error, field, value } = params;
+  const apiRef = useGridApiContext();
+
+  if (error) setSnackbar({ children: error.message, severity: "error" });
+
+  const handleChange = async (event) => {
+    console.log("onChange event: ", event);
+    if (event.code && event.code === "Backspace") {
+      return null;
+    }
+
+    const isValid = await apiRef.current.setEditCellValue({
+      id,
+      field,
+      value: event.target.value,
+    });
+
+    if (isValid) {
+      // Use validator to avoid xss attacks.
+      const safeData = {
+        id: validator.escape(id),
+        field: validator.escape(field),
+        data: validator.escape(event.target.value),
+      };
+
+      console.log("safeData: ", safeData);
+
+      // const res = await useUpdateUserById(safeData);
+      //
+      // if (res.error) throw new Error(res.error.message);
+
+      // Close editing cell.
+      apiRef.current.stopCellEditMode({ id, field });
+    }
+  };
+
+  return <Input value={value} onChange={handleChange} size="small" autoFocus />;
+};
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
+  const [snackbar, setSnackbar] = useState(null);
   const { data, error } = useGetUsers();
 
   if (error) throw new Error(error);
@@ -22,7 +106,45 @@ const Admin = () => {
     if (data) setUsers(data.users);
   }, [data]);
 
-  console.log("users: ", users);
+  const renderEditCell = (params) => {
+    const inputFields = ["name", "email"];
+
+    if (params.field === "role") return <SelectEditInputCell {...params} />;
+
+    if (inputFields.includes(params.field))
+      return <EditInputCell params={params} setSnackbar={setSnackbar} />;
+  };
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 240 },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 130,
+      editable: Boolean(true),
+      renderEditCell: renderEditCell,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 130,
+      editable: Boolean(true),
+      renderEditCell: renderEditCell,
+    },
+    {
+      field: "role",
+      headerName: "Role",
+      width: 90,
+      editable: Boolean(true),
+      renderEditCell: renderEditCell,
+    },
+  ];
+
+  const handleCloseSnackBar = () => setSnackbar(null);
+
+  const handleProcessRowUpdateError = useCallback((error) => {
+    setSnackbar({ children: error.message, severity: "error" });
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -35,43 +157,24 @@ const Admin = () => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          experimentalFeatures={{ newEditingApi: Boolean(true) }}
+          // processRowUpdate={handleProcessRowUpdate}
+          onProcessRowUpdateError={handleProcessRowUpdateError}
         />
+
+        {!!snackbar && (
+          <Snackbar
+            open
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            onClose={handleCloseSnackBar}
+            autoHideDuration={6000}
+          >
+            <Alert {...snackbar} onClose={handleCloseSnackBar} />
+          </Snackbar>
+        )}
       </div>
     </div>
   );
 };
 
 export default Admin;
-
-// <div
-//   className={
-//     "flex flex-col justify-center items-center h-screen text-gray-100 gap-y-6"
-//   }
-// >
-//   //{" "}
-// </div>;
-
-// <div>There are {users.length} users.</div>
-
-// <table className={"border table-auto w-[400px]"}>
-//   <caption>Users list</caption>
-//   <thead>
-//     <tr className={""}>
-//       <th>Name</th>
-//       <th>Email</th>
-//       <th>Role</th>
-//     </tr>
-//   </thead>
-//
-//   <tbody>
-//     {users?.map((user, id) => {
-//       return (
-//         <tr key={id}>
-//           <td className={"pl-4"}>{user?.name}</td>
-//           <td>{user?.email}</td>
-//           <td>{user?.role}</td>
-//         </tr>
-//       );
-//     })}
-//   </tbody>
-// </table>
