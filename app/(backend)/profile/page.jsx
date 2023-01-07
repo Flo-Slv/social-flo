@@ -6,26 +6,12 @@ import validator from "validator";
 import { CurrentUserContext } from "../../../context/currentUser/currentUserProvider.jsx";
 
 import useGetUserById from "../../../utils/swr/getUserById.js";
+import useUpdateUserById from "../../../utils/fetch/updateUserById.js";
 
 import AdminInput from "../../../components/form/AdminInput.jsx";
 import AdminEditButton from "../../../components/form/AdminEditButton.jsx";
 
 import styles from "../../../styles/backend/profile.module.scss";
-
-const updateUserById = async (updatedData, setInitialUser, setUser) => {
-  const res = await fetch("/api/users/updateUserById", {
-    body: JSON.stringify(updatedData),
-    headers: { "Content-Type": "application/json" },
-    method: "PATCH",
-  });
-
-  if (!res.ok) throw new Error("Failed to update user !");
-
-  const data = await res.json();
-
-  setInitialUser(data.user);
-  setUser(data.user);
-};
 
 const Profile = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -103,13 +89,18 @@ const Profile = () => {
     e.preventDefault;
 
     // Use validator to avoid xss attacks.
-    const updatedData = {
+    const safeData = {
       id: validator.escape(data.id),
       field: validator.escape(data.field),
       data: validator.escape(data.value),
     };
 
-    await updateUserById(updatedData, setInitialUser, setUser);
+    const res = await useUpdateUserById(safeData);
+
+    if (res.error) throw new Error(res.error.message);
+
+    setInitialUser(res.user);
+    setUser(res.user);
   };
 
   return (

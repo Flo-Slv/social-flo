@@ -116,6 +116,13 @@ export const removeUserById = async (id) => {
 
 export const updateUserById = async (id, updatedField) => {
   try {
+    if (updatedField.field === "role") {
+      const validData = ["ADMIN", "USER"];
+
+      if (!validData.includes(updatedField.data))
+        return { error: "You can not edit this role !" };
+    }
+
     const user = await prisma.user.update({
       where: { id },
       data: updatedField,
