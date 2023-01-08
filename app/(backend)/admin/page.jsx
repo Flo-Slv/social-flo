@@ -158,7 +158,6 @@ const Admin = () => {
           rowsPerPageOptions={[5]}
           checkboxSelection
           experimentalFeatures={{ newEditingApi: Boolean(true) }}
-          // processRowUpdate={handleProcessRowUpdate}
           onProcessRowUpdateError={handleProcessRowUpdateError}
         />
 
