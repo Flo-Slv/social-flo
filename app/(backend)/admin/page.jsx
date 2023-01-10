@@ -42,11 +42,7 @@ const EditToolbar = ({
         data: validator.escape(value),
       };
 
-      console.log("safeData: ", safeData);
-
-      const res = await useUpdateUserById(safeData);
-
-      if (!res.ok) throw new Error("Can not update user !");
+      await useUpdateUserById(safeData);
     } else {
       setCellModesModel({
         ...cellModesModel,
